@@ -25,4 +25,5 @@ optionally have the .exe extension appended; on Unix-based systems
 Embedded Helper function to copy base model stock synthesis data for each
 bootstrap and runs.
 }
+\keyword{Bootstrap}
 \keyword{internal}

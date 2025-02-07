@@ -6,9 +6,8 @@
 \usage{
 setup_ss_basemodel(
   basemodel_dir,
-  ss3_path,
   n_boot = 100,
-  seed = NULL,
+  seed = 123,
   ss3_exe = "ss3",
   bootstrap_outdir = file.path(this.path::this.proj())
 )
@@ -17,11 +16,9 @@ setup_ss_basemodel(
 \item{basemodel_dir}{File path where the Base Model Stock Synthesis files
 are located}
 
-\item{ss3_path}{File path of the Stock Synthesis Binary}
-
 \item{n_boot}{Number of Bootstraps}
 
-\item{seed}{Pusedorandom Number Seed}
+\item{seed}{Pusedorandom Number Seed. Default is 123}
 
 \item{ss3_exe}{Executable name. Can be just the name of the executable
 file if it is in the specified directory or in the user's PATH. Can also

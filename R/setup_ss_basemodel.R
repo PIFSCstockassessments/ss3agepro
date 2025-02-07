@@ -5,9 +5,8 @@
 #' Sets up a Stock Synthesis Base model including individual bootstrap runs.
 #' Function includes helper functions to to help with running SS in parallel
 #'
-#' @param seed Pusedorandom Number Seed
+#' @param seed Pusedorandom Number Seed. Default is 123
 #' @param bootstrap_outdir Path where the bootstrap file and bootstrap runs will be saved
-#' @param ss3_path File path of the Stock Synthesis Binary
 #' @template n_boot
 #' @template basemodel_dir
 #' @template ss3_exe
@@ -31,9 +30,8 @@
 #' @keywords Bootstrap
 #'
 setup_ss_basemodel <- function (basemodel_dir,
-                                    ss3_path,
                                     n_boot = 100,
-                                    seed = NULL,
+                                    seed = 123,
                                     ss3_exe = "ss3",
                                     bootstrap_outdir = file.path(this.path::this.proj())) {
 
@@ -54,7 +52,7 @@ setup_ss_basemodel <- function (basemodel_dir,
   message(paste0("Creating bootstrap data files in :\n\t", boot_dir))
 
   #Run Model to SS Once to generate data bootstrap files
-  setup_bootstrap_dir(basemodel_dir, boot_dir, ss3_path)
+  setup_bootstrap_dir(basemodel_dir, boot_dir, ss3_exe)
 
   # Extract end year of model using single run
   endyr <- endyr_model(boot_dir)
@@ -64,14 +62,12 @@ setup_ss_basemodel <- function (basemodel_dir,
 
   run_parallel(Lt)
 
-  message("\nOUTPUT BOOTSTRAP FILES\n")
-
   # Copy n_boot sso files back to bootstrap directory
   copy_n_boot_sso(boot_dir, n_boot)
 
-
+  message("\nOUTPUT BOOTSTRAP FILES\n")
   write_bsn_file(bootstrap_outdir, endyr, n_boot)
-  #output_bootstrap_runs(endyr, boot_dir, output_dir = bootstrap_outdir )
+
 
 }
 
@@ -86,6 +82,7 @@ setup_ss_basemodel <- function (basemodel_dir,
 #' @template ss3_exe
 #'
 #' @keywords internal
+#' @keywords Bootstrap
 #'
 setup_bootstrap_dir <- function (basemodel_dir,
                                  boot_dir,
@@ -94,16 +91,10 @@ setup_bootstrap_dir <- function (basemodel_dir,
 
   checkmate::assert_directory_exists(basemodel_dir)
 
-  # Key directory: boot_dir
-  #boot_dir <- file.path(basemodel_dir,"Bootstraps")
-  #dir.create(boot_dir,showWarnings = F) # Directory where bootstrap will be run.
-  #message(paste0("Creating bootstrap data files in :\n\t", boot_dir))
 
-
-  #TODO: Check of In Case ss3 binary exists in basemodel_dir, if not
+  #Check of In Case ss3 binary exists in basemodel_dir, if not
   #ss3 binary saved to basebmodel_dir
   if(!checkmate::test_file_exists(ss3_exe)){
-    #stop("missing ss3 path")
     get_ss3_exe(dir = basemodel_dir)
   }
 
