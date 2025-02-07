@@ -5,12 +5,12 @@
 #' Sets up a Stock Synthesis Base model including individual bootstrap runs.
 #' Function includes helper functions to to help with running SS in parallel
 #'
-#' @param n_boot Number of Bootstraps
 #' @param seed Pusedorandom Number Seed
-#' @param basemodel_dir where the base model SS files are located
 #' @param bootstrap_outdir Path where the bootstrap file and bootstrap runs will be saved
 #' @param ss3_path File path of the Stock Synthesis Binary
-#' @param ss3_exe Executable name. Can be just the name of the executable file if it is in the specified directory or in the user's PATH. Can also include the absolute path or a path relative to the specified directory. Needs to be a single character string, not a vector. On Windows, exe can optionally have the .exe extension appended; on Unix-based systems (i.e., Mac and Linux), no extension should be included.
+#' @template n_boot
+#' @template basemodel_dir
+#' @template ss3_exe
 #'
 #' @export
 #' @import r4ss
@@ -27,6 +27,8 @@
 #' @importFrom rlang eval_tidy
 #' @importFrom data.table data.table
 #' @importFrom data.table rbindlist
+#'
+#' @keywords Bootstrap
 #'
 setup_ss_basemodel <- function (basemodel_dir,
                                     ss3_path,
@@ -68,7 +70,7 @@ setup_ss_basemodel <- function (basemodel_dir,
   copy_n_boot_sso(boot_dir, n_boot)
 
 
-  write_bsn_file(endyr, output_dir = bootstrap_outdir, n_boot)
+  write_bsn_file(bootstrap_outdir, endyr, n_boot)
   #output_bootstrap_runs(endyr, boot_dir, output_dir = bootstrap_outdir )
 
 }
@@ -78,10 +80,10 @@ setup_ss_basemodel <- function (basemodel_dir,
 #' Embedded Helper function to copy base model stock synthesis data for each
 #' bootstrap and runs.
 #'
-#' @param basemodel_dir Target base model directory path
-#' @param boot_dir Target path for bootstrap output
-#' @param n_boot number of bootstraps
-#' @param ss3_exe ss3_exe
+#' @template basemodel_dir
+#' @template boot_dir
+#' @template n_boot
+#' @template ss3_exe
 #'
 #' @keywords internal
 #'
@@ -137,7 +139,8 @@ setup_bootstrap_dir <- function (basemodel_dir,
 #' @param boot_dir boostrap directory
 #' @param ss3_exe ss3_exe
 #'
-#' @keywords Internal
+#' @keywords Bootstrap
+#' @keywords internal
 #'
 setup_n_boot_runs <- function(basemodel_dir,
                               boot_dir,
@@ -205,8 +208,8 @@ setup_n_boot_runs <- function(basemodel_dir,
 #' have a bootstrap run identifier.
 #'
 #'
-#' @param boot_dir Bootstrap Directory
-#' @param n_boot Number of Bootstraps
+#' @template boot_dir
+#' @template n_boot
 #' @param copy_compReport Copy compReport Bootstrap Run to Bootstrap
 #' Directory? Default is TRUE
 #' @param copy_covar Copy covar Bootstrap Run to Bootstrap Directory? Default
@@ -214,6 +217,7 @@ setup_n_boot_runs <- function(basemodel_dir,
 #' @param copy_warning Copy warning Bootstrap Run to Bootstrap Directory?
 #' Default is TRUE.
 #'
+#' @keywords Bootstrap
 #' @keywords internal
 #'
 copy_n_boot_sso <- function(boot_dir,
@@ -261,20 +265,24 @@ copy_n_boot_sso <- function(boot_dir,
 
 #' Write an Age Based Bootstrap File
 #'
-#' Writes an Age Based Bootstrap File
+#' Writes an Age Based Bootstrap File. Output is written to the bootstrap
+#' directory.
 #'
 #' @param endyr End of Year Model
-#' @param output_dir Target path to write AGEPRO bootstrap file
-#' @param n_boot number of Bootstraps
+#' @template boot_dir
+#' @template n_boot
 #'
+#' @keywords Bootstrap
 #' @keywords internal
 #'
-write_bsn_file <- function(endyr, output_dir, n_boot = 1){
+write_bsn_file <- function(boot_dir, endyr, n_boot = 1){
+
+  checkmate::assert_directory_exists(boot_dir)
 
   AgeStr.List <- list()
   for(i in 1:n_boot){
 
-    aBootDir    <- file.path(output_dir,paste0("Boot",i))
+    aBootDir    <- file.path(boot_dir,paste0("Boot",i))
     anOutput    <- r4ss::SS_output(dir=aBootDir)
     anAgeStr    <- data.table::data.table(anOutput$natage)
     FinalAgeStr <- anAgeStr["Yr"==endyr&anAgeStr$'Beg/Mid'=="B"] |> select(-("Area":"Era"))
@@ -285,7 +293,7 @@ write_bsn_file <- function(endyr, output_dir, n_boot = 1){
   BootAgeStr <- data.table::rbindlist(AgeStr.List)
 
   write.table(BootAgeStr,
-              file = output_dir,
+              file = boot_dir,
               row.names=F, col.names=F)
 
 }
@@ -295,7 +303,7 @@ write_bsn_file <- function(endyr, output_dir, n_boot = 1){
 #' Embedded Helper function to return end year of model (endyr) and derived
 #' quants
 #'
-#' @param boot_dir Bootstrap Directory
+#' @template boot_dir
 #'
 #' @import stringr
 #' @importFrom r4ss SS_output
@@ -304,6 +312,7 @@ write_bsn_file <- function(endyr, output_dir, n_boot = 1){
 #' @importFrom rlang .data
 #' @importFrom magrittr %>%
 #'
+#' @keywords Bootstrap
 #' @keywords internal
 #'
 endyr_model <- function (boot_dir) {

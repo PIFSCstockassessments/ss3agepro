@@ -7,13 +7,19 @@
 setup_bootstrap_dir(basemodel_dir, boot_dir, n_boot = 1, ss3_exe = "ss3.exe")
 }
 \arguments{
-\item{basemodel_dir}{Target base model directory path}
+\item{basemodel_dir}{File path where the Base Model Stock Synthesis files
+are located}
 
-\item{boot_dir}{Target path for bootstrap output}
+\item{boot_dir}{Path where the bootstrap files will be saved. Bootstrap runs}
 
-\item{n_boot}{number of bootstraps}
+\item{n_boot}{Number of Bootstraps}
 
-\item{ss3_exe}{ss3_exe}
+\item{ss3_exe}{Executable name. Can be just the name of the executable
+file if it is in the specified directory or in the user's PATH. Can also
+include the absolute path or a path relative to the specified directory.
+Needs to be a single character string, not a vector. On Windows, exe can
+optionally have the .exe extension appended; on Unix-based systems
+(i.e., Mac and Linux), no extension should be included.}
 }
 \description{
 Embedded Helper function to copy base model stock synthesis data for each

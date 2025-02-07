@@ -13,7 +13,7 @@ copy_n_boot_sso(
 )
 }
 \arguments{
-\item{boot_dir}{Bootstrap Directory}
+\item{boot_dir}{Path where the bootstrap files will be saved. Bootstrap runs}
 
 \item{n_boot}{Number of Bootstraps}
 
@@ -32,4 +32,5 @@ Summaries, and Log of Warnings from each Bootstrap run to the main
 bootstrap directory. Each copied bootstrap run file will be renamed to
 have a bootstrap run identifier.
 }
+\keyword{Bootstrap}
 \keyword{internal}

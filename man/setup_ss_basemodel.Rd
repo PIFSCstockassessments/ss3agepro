@@ -14,7 +14,8 @@ setup_ss_basemodel(
 )
 }
 \arguments{
-\item{basemodel_dir}{where the base model SS files are located}
+\item{basemodel_dir}{File path where the Base Model Stock Synthesis files
+are located}
 
 \item{ss3_path}{File path of the Stock Synthesis Binary}
 
@@ -22,7 +23,12 @@ setup_ss_basemodel(
 
 \item{seed}{Pusedorandom Number Seed}
 
-\item{ss3_exe}{Executable name. Can be just the name of the executable file if it is in the specified directory or in the user's PATH. Can also include the absolute path or a path relative to the specified directory. Needs to be a single character string, not a vector. On Windows, exe can optionally have the .exe extension appended; on Unix-based systems (i.e., Mac and Linux), no extension should be included.}
+\item{ss3_exe}{Executable name. Can be just the name of the executable
+file if it is in the specified directory or in the user's PATH. Can also
+include the absolute path or a path relative to the specified directory.
+Needs to be a single character string, not a vector. On Windows, exe can
+optionally have the .exe extension appended; on Unix-based systems
+(i.e., Mac and Linux), no extension should be included.}
 
 \item{bootstrap_outdir}{Path where the bootstrap file and bootstrap runs will be saved}
 }
@@ -30,3 +36,4 @@ setup_ss_basemodel(
 Sets up a Stock Synthesis Base model including individual bootstrap runs.
 Function includes helper functions to to help with running SS in parallel
 }
+\keyword{Bootstrap}

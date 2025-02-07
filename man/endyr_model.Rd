@@ -7,9 +7,11 @@
 endyr_model(boot_dir)
 }
 \arguments{
-\item{boot_dir}{Bootstrap Directory}
+\item{boot_dir}{Path where the bootstrap files will be saved. Bootstrap runs}
 }
 \description{
 Embedded Helper function to return end year of model (endyr) and derived
 quants
 }
+\keyword{Bootstrap}
+\keyword{internal}

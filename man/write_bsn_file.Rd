@@ -4,16 +4,18 @@
 \alias{write_bsn_file}
 \title{Write an Age Based Bootstrap File}
 \usage{
-write_bsn_file(endyr, output_dir, n_boot = 1)
+write_bsn_file(boot_dir, endyr, n_boot = 1)
 }
 \arguments{
+\item{boot_dir}{Path where the bootstrap files will be saved. Bootstrap runs}
+
 \item{endyr}{End of Year Model}
 
-\item{output_dir}{Target path to write AGEPRO bootstrap file}
-
-\item{n_boot}{number of Bootstraps}
+\item{n_boot}{Number of Bootstraps}
 }
 \description{
-Writes an Age Based Bootstrap File
+Writes an Age Based Bootstrap File. Output is written to the bootstrap
+directory.
 }
+\keyword{Bootstrap}
 \keyword{internal}
