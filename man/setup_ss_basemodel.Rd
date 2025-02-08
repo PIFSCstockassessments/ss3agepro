@@ -6,15 +6,17 @@
 \usage{
 setup_ss_basemodel(
   basemodel_dir,
+  bootstrap_outdir,
   n_boot = 100,
   seed = 123,
-  ss3_exe = "ss3",
-  bootstrap_outdir = file.path(this.path::this.proj())
+  ss3_exe = "ss3"
 )
 }
 \arguments{
 \item{basemodel_dir}{File path where the Base Model Stock Synthesis files
 are located}
+
+\item{bootstrap_outdir}{Path where the bootstrap file and bootstrap runs will be saved}
 
 \item{n_boot}{Number of Bootstraps}
 
@@ -26,11 +28,21 @@ include the absolute path or a path relative to the specified directory.
 Needs to be a single character string, not a vector. On Windows, exe can
 optionally have the .exe extension appended; on Unix-based systems
 (i.e., Mac and Linux), no extension should be included.}
-
-\item{bootstrap_outdir}{Path where the bootstrap file and bootstrap runs will be saved}
 }
 \description{
 Sets up a Stock Synthesis Base model including individual bootstrap runs.
 Function includes helper functions to to help with running SS in parallel
+}
+\examples{
+\dontrun{
+#Import Basemodel from inst/01_base and output Bootstraps to inst/bsn_output
+basemodel_dir <- file.path(find.package("sso.agepro"),"inst","01_base")
+output_dir <-file.path(find.package("sso.agepro"),"inst","bsn_output")
+
+setup_ss_basemodel(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
+
+}
+
+
 }
 \keyword{Bootstrap}

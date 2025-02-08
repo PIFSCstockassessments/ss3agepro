@@ -27,29 +27,37 @@
 #' @importFrom data.table data.table
 #' @importFrom data.table rbindlist
 #'
+#' @examples
+#' \dontrun{
+#' #Import Basemodel from inst/01_base and output Bootstraps to inst/bsn_output
+#' basemodel_dir <- file.path(find.package("sso.agepro"),"inst","01_base")
+#' output_dir <-file.path(find.package("sso.agepro"),"inst","bsn_output")
+#'
+#' setup_ss_basemodel(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
+#'
+#' }
+#'
+#'
 #' @keywords Bootstrap
 #'
 setup_ss_basemodel <- function (basemodel_dir,
-                                    n_boot = 100,
-                                    seed = 123,
-                                    ss3_exe = "ss3",
-                                    bootstrap_outdir = file.path(this.path::this.proj())) {
+                                bootstrap_outdir,
+                                n_boot = 100,
+                                seed = 123,
+                                ss3_exe = "ss3") {
+
+  ## TODO: Option to clean up Previous Bootstrap files.
+
+  checkmate::assert_directory_exists(basemodel_dir)
+  checkmate::assert_directory_exists(bootstrap_outdir)
+
+  # Key directory: boot_dir
+  boot_dir <- bootstrap_outdir
 
   #By Default, create a pseudo random number seed if seed is NULL
   if(!is.null(seed)){
     set.seed(seed)
   }
-
-
-  ## TODO: Option to clean up Previous Bootstrap files.
-
-  ## TODO: REFACTOR Setup as helper function
-  # Key directory: boot_dir
-  boot_dir <- file.path(basemodel_dir,"Bootstraps")
-
-  dir.create(boot_dir,showWarnings = F) # Directory where bootstrap will be run.
-
-  message(paste0("Creating bootstrap data files in :\n\t", boot_dir))
 
   #Run Model to SS Once to generate data bootstrap files
   setup_bootstrap_dir(basemodel_dir, boot_dir, ss3_exe)
