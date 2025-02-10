@@ -37,7 +37,7 @@ Function includes helper functions to to help with running SS in parallel
 \dontrun{
 #Import Basemodel from inst/01_base and output Bootstraps to inst/bsn_output
 basemodel_dir <- file.path(find.package("sso.agepro"),"inst","01_base")
-output_dir <-file.path(find.package("sso.agepro"),"inst","bsn_output")
+output_dir <- file.path(tempdir(),"inst","bsn_output")
 
 setup_ss_basemodel(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
 

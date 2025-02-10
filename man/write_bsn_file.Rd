@@ -4,18 +4,21 @@
 \alias{write_bsn_file}
 \title{Write an Age Based Bootstrap File}
 \usage{
-write_bsn_file(boot_dir, endyr, n_boot = 1)
+write_bsn_file(boot_dir, bsn_outfile = "boot.bsn", n_boot = 1)
 }
 \arguments{
 \item{boot_dir}{Path where the bootstrap files will be saved. Bootstrap runs}
 
-\item{endyr}{End of Year Model}
+\item{bsn_outfile}{Character file nameutil string or file connection used in
+write Bootstrap data tables via \code{\link[utils:write.table]{utils::write.table()}}. Defaults to
+"boot.bsn".}
 
 \item{n_boot}{Number of Bootstraps}
 }
 \description{
-Writes an Age Based Bootstrap File. Output is written to the bootstrap
-directory.
+Writes an Age Based Bootstrap File. Bootstrap timeseries is based on the
+end of year model and derived quantities for each bootstrap run. Bootstrap
+data table output is written to file.
 }
 \keyword{Bootstrap}
 \keyword{internal}

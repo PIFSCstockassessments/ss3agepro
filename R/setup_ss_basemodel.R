@@ -62,9 +62,6 @@ setup_ss_basemodel <- function (basemodel_dir,
   #Run Model to SS Once to generate data bootstrap files
   setup_bootstrap_dir(basemodel_dir, boot_dir, ss3_exe)
 
-  # Extract end year of model using single run
-  endyr <- endyr_model(boot_dir)
-
   # Set up each bootstrap run in its own folder, to help with running SS in parallel
   Lt <- setup_n_boot_runs(n_boot, basemodel_dir, boot_dir)
 
@@ -74,7 +71,10 @@ setup_ss_basemodel <- function (basemodel_dir,
   copy_n_boot_sso(boot_dir, n_boot)
 
   message("\nOUTPUT BOOTSTRAP FILES\n")
-  write_bsn_file(bootstrap_outdir, endyr, n_boot)
+  ## TODO: BSN filename
+  # Bootstrap Data Table written as "bootstrap.bsn" under the bootstrap directory
+  bsn_file <- file.path(bootstrap_outdir,"bootstrap.bsn")
+  write_bsn_file(bootstrap_outdir, bsn_file, n_boot)
 
 
 }
@@ -262,21 +262,29 @@ copy_n_boot_sso <- function(boot_dir,
 
 }
 
+
+
+
 #' Write an Age Based Bootstrap File
 #'
-#' Writes an Age Based Bootstrap File. Output is written to the bootstrap
-#' directory.
+#' Writes an Age Based Bootstrap File. Bootstrap timeseries is based on the
+#' end of year model and derived quantities for each bootstrap run. Bootstrap
+#' data table output is written to file.
 #'
-#' @param endyr End of Year Model
+#' @param bsn_outfile Character file nameutil string or file connection used in
+#' write Bootstrap data tables via [utils::write.table()]. Defaults to
+#' "boot.bsn".
 #' @template boot_dir
 #' @template n_boot
 #'
 #' @keywords Bootstrap
 #' @keywords internal
 #'
-write_bsn_file <- function(boot_dir, endyr, n_boot = 1){
+write_bsn_file <- function(boot_dir, bsn_outfile = "boot.bsn" , n_boot = 1){
 
   checkmate::assert_directory_exists(boot_dir)
+
+  endyr <- endyr_model(boot_dir)
 
   AgeStr.List <- list()
   for(i in 1:n_boot){
@@ -292,8 +300,10 @@ write_bsn_file <- function(boot_dir, endyr, n_boot = 1){
   BootAgeStr <- data.table::rbindlist(AgeStr.List)
 
   write.table(BootAgeStr,
-              file = boot_dir,
+              file = bsn_outfile,
               row.names=F, col.names=F)
+
+  message(paste0("Bootstrap Table Written to ", bsn_outfile))
 
 }
 
