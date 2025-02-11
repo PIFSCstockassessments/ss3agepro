@@ -31,7 +31,7 @@
 #' \dontrun{
 #' #Import Basemodel from inst/01_base and output Bootstraps to inst/bsn_output
 #' basemodel_dir <- file.path(find.package("sso.agepro"),"inst","01_base")
-#' output_dir <-file.path(find.package("sso.agepro"),"inst","bsn_output")
+#' output_dir <- file.path(tempdir(),"inst","bsn_output")
 #'
 #' setup_ss_basemodel(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
 #'
@@ -71,7 +71,7 @@ setup_ss_basemodel <- function (basemodel_dir,
   copy_n_boot_sso(boot_dir, n_boot)
 
   message("\nOUTPUT BOOTSTRAP FILES\n")
-  ## TODO: BSN filename
+  ## TODO: set BSN filename string parameter
   # Bootstrap Data Table written as "bootstrap.bsn" under the bootstrap directory
   bsn_file <- file.path(bootstrap_outdir,"bootstrap.bsn")
   write_bsn_file(bootstrap_outdir, bsn_file, n_boot)
