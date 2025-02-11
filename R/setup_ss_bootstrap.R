@@ -33,14 +33,14 @@
 #' basemodel_dir <- file.path(find.package("sso.agepro"),"inst","01_base")
 #' output_dir <- file.path(tempdir(),"inst","bsn_output")
 #'
-#' setup_ss_basemodel(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
+#' setup_ss_bootstrap(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
 #'
 #' }
 #'
 #'
 #' @keywords Bootstrap
 #'
-setup_ss_basemodel <- function (basemodel_dir,
+setup_ss_bootstrap <- function (basemodel_dir,
                                 bootstrap_outdir,
                                 n_boot = 100,
                                 seed = 123,
@@ -60,15 +60,15 @@ setup_ss_basemodel <- function (basemodel_dir,
   }
 
   #Run Model to SS Once to generate data bootstrap files
-  setup_bootstrap_dir(basemodel_dir, boot_dir, ss3_exe)
+  ss_model_bootstrap(basemodel_dir, boot_dir, ss3_exe)
 
   # Set up each bootstrap run in its own folder, to help with running SS in parallel
-  Lt <- setup_n_boot_runs(n_boot, basemodel_dir, boot_dir)
+  Lt <- ss_model_n_boot(n_boot, basemodel_dir, boot_dir)
 
   run_parallel(Lt)
 
   # Copy n_boot sso files back to bootstrap directory
-  copy_n_boot_sso(boot_dir, n_boot)
+  copy_sso_n_boot(boot_dir, n_boot)
 
   message("\nOUTPUT BOOTSTRAP FILES\n")
   ## TODO: set BSN filename string parameter
@@ -92,7 +92,7 @@ setup_ss_basemodel <- function (basemodel_dir,
 #' @keywords internal
 #' @keywords Bootstrap
 #'
-setup_bootstrap_dir <- function (basemodel_dir,
+ss_model_bootstrap <- function (basemodel_dir,
                                  boot_dir,
                                  n_boot = 1,
                                  ss3_exe = "ss3.exe") {
@@ -141,7 +141,7 @@ setup_bootstrap_dir <- function (basemodel_dir,
 #' @keywords Bootstrap
 #' @keywords internal
 #'
-setup_n_boot_runs <- function(basemodel_dir,
+ss_model_n_boot <- function(basemodel_dir,
                               boot_dir,
                               n_boot,
                               ss3_exe = "ss3.exe") {
@@ -219,7 +219,7 @@ setup_n_boot_runs <- function(basemodel_dir,
 #' @keywords Bootstrap
 #' @keywords internal
 #'
-copy_n_boot_sso <- function(boot_dir,
+copy_sso_n_boot <- function(boot_dir,
                             n_boot,
                             copy_compReport = TRUE,
                             copy_covar = TRUE,

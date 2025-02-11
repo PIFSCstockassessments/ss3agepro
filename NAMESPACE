@@ -2,7 +2,7 @@
 
 export(get_ss3_exe)
 export(run_parallel)
-export(setup_ss_basemodel)
+export(setup_ss_bootstrap)
 import(checkmate)
 import(gh)
 import(parallel)
