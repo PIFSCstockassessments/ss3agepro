@@ -20,4 +20,6 @@ extract_end_year <- function(ss_objectlist) {
                      stringr::str_length(drvquants$Label)-3,
                      stringr::str_length(drvquants$Label)) ),
     na.rm = TRUE )
+
+  return(endyr)
 }
