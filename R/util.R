@@ -23,3 +23,40 @@ extract_end_year <- function(ss_objectlist) {
 
   return(endyr)
 }
+
+
+#' Fleets with a unique length based selectivity
+#'
+#' (Review) For building AGEPRO input files, from Stock Synthesis length based
+#' selectivity data.
+#'
+#' @template ss_objectlist
+#'
+#' @examples
+#' \dontrun{
+#'
+#' basemodel_dir <- file.path(find.package("sso.agepro"),"01_base")
+#' base_model <- r4ss::SS_output(basemodel_dir)
+#'
+#' # Returns Catch Fleet Numbers matching unique selectvity criteria.
+#' unique_selectivity_fleets(base_model)
+#'
+#' # Number of Fleets
+#' length(unique_selectivity_fleets(base_model))
+#'
+#' }
+#'
+#'
+#'
+unique_selectivity_fleets <- function(ss_objectlist){
+
+  num_fleets <- ss_objectlist$Fishery_SelAtAge |>
+    dplyr::filter(.data$Yr == max(ss_objectlist$FbyFleet$Yr) ) |>
+    dplyr::distinct(dplyr::across(-c("Yr", "Fleet")), .keep_all = TRUE) |>
+    dplyr::select("Fleet") |>
+    dplyr::pull()
+
+  return(num_fleets)
+}
+
+
