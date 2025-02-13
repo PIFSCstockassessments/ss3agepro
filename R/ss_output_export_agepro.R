@@ -47,20 +47,31 @@
 ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter")){
 
 
+  ## TODO: Validate ss_objectlist
+
   #Validate timestep parameter
   timestep <- match.arg(timestep)
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
 
   ss_agepro <- list()
 
   # Number of Fleets
-  ss_agepro[["Nfleets"]] <- length(which(ss_objectlist$fleet_type==1))
+  ss_agepro[["Nfleets"]] <- length(unique(unique_selectivity_fleets(ss_objectlist)))
 
-
+  ## TODO: Make this flexable enough for AGEPRO Recruitment
+  # Set RECRUIT values
+  set_parametric_recruit(ss_objectlist, ss_agepro)
 
   #indicate if you are doing yearly or years as quarters
   switch(timestep,
-         "Year" = export_ss_objectlist_year(),
-         "Quarter" = export_ss_objectlist_quarter())
+         "Year" = export_ss_objectlist_year(ss_objectlist,
+                                            SS_agepro,
+                                            yr_end),
+         "Quarter" = export_ss_objectlist_quarter(ss_objectlist,
+                                                  ss_agepro,
+                                                  yr_end))
 
   return(ss_agepro)
 }
