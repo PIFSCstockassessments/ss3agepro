@@ -136,6 +136,24 @@ get_ss_objectlist_parameter <- function(ss_objectlist, ss_label){
 }
 
 
+#' Sets weight of Age parameter values based from the Stock Synthesis Object List
+#'
+#' Convenience function to get Weight of Age parameter and CV values from
+#' the Stock Synthesis Object List to the AGEPRO object list.
+#'
+#'
+#' @template ss_objectlist
+#' @template ss_agepro
+#' @param WAA_param Weight of Age Parameter
+#' @param ss_label Name of the ss_objectlist parameter to extract values from
+#'
+#'
+set_ss_agepro_WAA <- function(ss_agepro, WAA_param, ss_objectlist, ss_label){
+
+}
+
+
+
 
 #' Export Stock Synthesis Object List for AGEPRO by Year
 #'
