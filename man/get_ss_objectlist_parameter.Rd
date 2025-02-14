@@ -4,12 +4,12 @@
 \alias{get_ss_objectlist_parameter}
 \title{Get a parameter and its values from the Stock Synthesis Object List}
 \usage{
-get_ss_objectlist_parameter(ss_objectlist, param_name)
+get_ss_objectlist_parameter(ss_objectlist, ss_label)
 }
 \arguments{
 \item{ss_objectlist}{Stock Synthesis list object data, primary from \code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
 
-\item{param_name}{Name of the ss_objectlist parameter to extract values from.}
+\item{ss_label}{Name of the ss_objectlist parameter to extract values from.}
 }
 \description{
 Convenience function to get parameter values from the Stock Synthesis Object

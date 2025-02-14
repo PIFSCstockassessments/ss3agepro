@@ -127,12 +127,12 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 #' List.
 #'
 #' @template ss_objectlist
-#' @param param_name Name of the ss_objectlist parameter to extract values from.
+#' @param ss_label Name of the ss_objectlist parameter to extract values from.
 #'
 #' @export
 #'
-get_ss_objectlist_parameter <- function(ss_objectlist, param_name){
-  return(ss_objectlist$parameters[which(ss_objectlist$parameters$Label == param_name), "Value"])
+get_ss_objectlist_parameter <- function(ss_objectlist, ss_label){
+  return(ss_objectlist$parameters[which(ss_objectlist$parameters$Label == ss_label), "Value"])
 }
 
 
