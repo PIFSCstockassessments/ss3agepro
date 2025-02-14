@@ -186,6 +186,19 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   ss_agepro[["MatAtAgeCV"]] <- rep(0.01, ss_agepro$MaxAge)
 
 
+  ## Fishery Selectivity at age
+
+  ss_agepro[["Fishery_SelAtAge"]] <- ss_objectlist$ageselex |>
+    dplyr::filter(.data$Factor == "Asel2",
+                  .data$Yr <= yr_end,
+                  .data$Seas == 1,
+                  .data$Fleet <= ss_agepro$Nfleets) |>
+    {\(.) dplyr::select("Yr","Fleet",9:ncol(.))}()
+
+  ##Fishery_seleatage coefficient of variation, set to a standard 0.1
+  ss_agepro[["Fishery_SelAtAgeCV"]] <- matrix(0.1,
+                                              nrow=ss_agepro$Nfleets,
+                                              ncol=ss_agepro$MaxAge)
 
 }
 
