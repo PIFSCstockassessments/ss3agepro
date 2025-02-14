@@ -119,6 +119,24 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 
 }
 
+
+
+#' Get a parameter and its values from the Stock Synthesis Object List
+#'
+#' Convenience function to get parameter values from the Stock Synthesis Object
+#' List.
+#'
+#' @template ss_objectlist
+#' @param param_name Name of the ss_objectlist parameter to extract values from.
+#'
+#' @export
+#'
+get_ss_objectlist_parameter <- function(ss_objectlist, param_name){
+  return(ss_objectlist$parameters[which(ss_objectlist$parameters$Label == param_name), "Value"])
+}
+
+
+
 #' Export Stock Synthesis Object List for AGEPRO by Year
 #'
 #' Exports the Stock Synthesis Object List parameters that AGEPRO uses, using
