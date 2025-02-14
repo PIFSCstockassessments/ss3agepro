@@ -162,8 +162,24 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   # Extract end year
   yr_end <- extract_end_year(ss_objectlist)
 
-  #MaxAge
+  # MaxAge
   ss_agepro[["MaxAge"]] <- ss_objectlist$accuage
+
+  # Maturity
+
+  Mat_Slope <- get_ss_objectlist_parameter(ss_objectlist, "Mat_slope_Fem_GP_1")
+  Mat_50 <- get_ss_objectlist_parameter(ss_objectlist, "Mat50%_Fem_GP_1")
+
+
+  which_latage <- which(ss_objectlist$growthseries$Yr==yr_end &
+                          ss_objectlist$growthseries$Seas==1 &
+                          ss_objectlist$growthseries$SubSeas==1)
+  LatAge <- ss_objectlist$growthseries[which_latage,
+                                       6:ncol(ss_objectlist$growthseries)]
+
+  ss_agepro[["MatAtAge"]] <- 1 / (1 + exp(Mat_Slope*(LatAge-Mat_50)))
+  ss_agepro[["MatAtAgeCV"]] <- rep(0.01,Out$MaxAge)
+
 
 
 }
