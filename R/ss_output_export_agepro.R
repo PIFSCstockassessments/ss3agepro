@@ -52,9 +52,6 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   #Validate timestep parameter
   timestep <- match.arg(timestep)
 
-  # Extract end year
-  yr_end <- extract_end_year(ss_objectlist)
-
   ss_agepro <- list()
 
   # Number of Fleets
@@ -67,11 +64,9 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   #indicate if you are doing yearly or years as quarters
   switch(timestep,
          "Year" = export_ss_objectlist_year(ss_objectlist,
-                                            SS_agepro,
-                                            yr_end),
+                                            ss_agepro),
          "Quarter" = export_ss_objectlist_quarter(ss_objectlist,
-                                                  ss_agepro,
-                                                  yr_end))
+                                                  ss_agepro))
 
   return(ss_agepro)
 }
@@ -124,12 +119,41 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 
 }
 
-export_ss_objectlist_year <- function (ss_objectlist, ss_agepro, endyr){
+#' Export Stock Synthesis Object List for AGEPRO by Year
+#'
+#' Exports the Stock Synthesis Object List parameters that AGEPRO uses, using
+#' the Year time series.
+#'
+#' The function will gather the parameter and CV table for Maturity, Fishery
+#' Selectivity Of Age, Weights of Age ( Jan-1, Spawning Stock
+#' Biomass, Mid-Year), and Catch at Age. Each years `CatchByFleet` is used
+#' to calculate the proportion of total catch.
+#'
+#' @details
+#' For Maturity, maturity if age, starting at age 1. The length at age then
+#' use maturity to give to calculate maturity at age
+#' \deqn{P_{mature}(L) = \frac{1}{(1 + exp(beta*(L-L_{50})))}}
+#'
+#'
+#'
+#' @template ss_objectlist
+#' @param ss_agepro Stock Synthesis Object List for AGEPRO parameters
+#'
+export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
+
+  #MaxAge
+  ss_agepro[["MaxAge"]] <- ss_objectlist$accuage
 
 
 }
 
-export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro, endyr) {
+export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
 
 }
 
