@@ -197,6 +197,17 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
                                               nrow=ss_agepro$Nfleets,
                                               ncol=ss_agepro$MaxAge)
 
+  # Natural Mortality
+
+  ss_agepro[["NatMort_atAge"]] <- ss_objectlist$Natural_Mortality |>
+    dplyr::slice(1) |>
+    {\(.) dplyr::select(6:ncol(.))}()
+
+  ss_agepro[["NatMort_atAgeCV"]] <- rep(0.01,ss_agepro$MaxAge)
+
+
+
+
 }
 
 export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
