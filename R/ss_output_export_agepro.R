@@ -86,7 +86,7 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 #' accounts Female-only biomass, but AGEPRO stock SSB is in total biomass.
 #'
 #' @template ss_objectlist
-#' @param ss_agepro Stock Synthesis Object List for AGEPRO parameters
+#' @template ss_agepro
 #'
 #' @author Marc Nadon
 #'
