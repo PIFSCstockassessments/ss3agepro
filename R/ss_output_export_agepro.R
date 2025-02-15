@@ -185,8 +185,27 @@ get_WAA_growth <- function(ss_objectlist,
 
 }
 
+#' Process Error parameter's default Coefficient of Variation
+#'
+#' Returns the vector of Coefficient of Variation (CV) values. The length of
+#' the vector is determined by max_age.
+#'
+#' @param max_age Max Age. Determines the length of vector.
+#' @param value Default value for CV.
+#'
+#' @examples
+#' \dontrun{
+#'   get_cv_process_error(10)
+#' }
+#'
+default_cv_process_error <- function(max_age, value = 0.1) {
+  return(rep(value,max_age))
+}
 
 
+default_cv_fleets_process_error <- function(){
+
+}
 
 #' Export Stock Synthesis Object List for AGEPRO by Year
 #'
