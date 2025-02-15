@@ -183,9 +183,6 @@ get_WAA_growth <- function(ss_objectlist,
     stop("Invalid Operation")
   }
 
-
-
-
 }
 
 
@@ -259,7 +256,11 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
 
   ss_agepro[["NatMort_atAgeCV"]] <- rep(0.01,ss_agepro$MaxAge)
 
-
+  ss_agepro[["Jan_WAA"]] <- get_WAA_growth(ss_objectlist, "Year")
+  ss_agepro[["Jan_WAA"]] <-
+    get_ss_objectlist_parameter(ss_objectlist, "Wtlen_1_Fem_GP_1") *
+    (ss_agepro[["Jan_WAA"]] ^
+       get_ss_objectlist_parameter(ss_objectlist, "Wtlen_2_Fem_GP_1"))
 
 
 }
