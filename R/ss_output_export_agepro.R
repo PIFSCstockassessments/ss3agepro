@@ -161,7 +161,7 @@ set_ss_agepro_WAA <- function(ss_agepro, WAA_param, ss_objectlist, ss_label){
 #' the Year time series.
 #'
 #' The function will gather the parameter and CV table for Maturity, Fishery
-#' Selectivity Of Age, Weights of Age ( Jan-1, Spawning Stock
+#' Selectivity Of Age, Weights of Age (Jan-1, Spawning Stock
 #' Biomass, Mid-Year), and Catch at Age. Each years `CatchByFleet` is used
 #' to calculate the proportion of total catch.
 #'

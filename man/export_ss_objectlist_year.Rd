@@ -17,7 +17,7 @@ the Year time series.
 }
 \details{
 The function will gather the parameter and CV table for Maturity, Fishery
-Selectivity Of Age, Weights of Age ( Jan-1, Spawning Stock
+Selectivity Of Age, Weights of Age (Jan-1, Spawning Stock
 Biomass, Mid-Year), and Catch at Age. Each years \code{CatchByFleet} is used
 to calculate the proportion of total catch.
 
