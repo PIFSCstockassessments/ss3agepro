@@ -136,19 +136,55 @@ get_ss_objectlist_parameter <- function(ss_objectlist, ss_label){
 }
 
 
-#' Sets weight of Age parameter values based from the Stock Synthesis Object List
+#' Gets growth information for weight of Age parameter values.
 #'
-#' Convenience function to get Weight of Age parameter and CV values from
-#' the Stock Synthesis Object List to the AGEPRO object list.
+#' Convenience function to get Growth Information  from
+#' the Stock Synthesis Object List to calculate Weight of Age. Method will
+#' vary depending on timestep used.
 #'
 #'
 #' @template ss_objectlist
-#' @template ss_agepro
-#' @param WAA_param Weight of Age Parameter
-#' @param ss_label Name of the ss_objectlist parameter to extract values from
+#' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
+#' with a yearly time step or as quarters as years. "Year" as Default.
 #'
 #'
-set_ss_agepro_WAA <- function(ss_agepro, WAA_param, ss_objectlist, ss_label){
+get_WAA_growth <- function(ss_objectlist,
+                              timestep = c("Year","Quarter")){
+
+  # Validate timestep
+  timestep <- match.arg(timestep)
+
+  # Validate ss_objectlist
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
+
+  if(timestep == "Year") {
+    return(
+      ss_objectlist$growthseries |>
+        dplyr::filter(
+          .data$Yr == yr_end,
+          .data$Seas == 1,
+          .data$SubSeas == 1
+          ) |>
+        {\(.) dplyr::select(6:ncol(.))}() |>
+        unlist()
+      )
+  }else if(timestep == "Quarter"){
+    return(
+      ss_objectlist$growthseries |>
+        dplyr::filter(.data$Yr == yr_end, .data$SubSeas == 1) |>
+        {\(.) dplyr::select(6:ncol(.))}() |>
+        data.table::melt() |>
+        dplyr::select(2) |>
+        as.vector()
+    )
+  }else{
+    stop("Invalid Operation")
+  }
+
+
+
 
 }
 
