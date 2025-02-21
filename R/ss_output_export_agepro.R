@@ -203,7 +203,29 @@ default_cv_process_error <- function(max_age, value = 0.1) {
 }
 
 
-default_cv_fleets_process_error <- function(){
+#' Default Coefficient of Variation for process error parameters with fleets
+#'
+#' Returns a matrix containing a default Coefficient of Variation (CV) value.
+#' The dimensions of the matrix is determined by max_age over the number of
+#' fleets.
+#'
+#' @inheritParams default_cv_process_error
+#' @param num_fleets Number of Fleets. For
+#'
+#' @examples
+#' \dontrun{
+#'   get_cv_fleets_process_error(10, 5, 0.1)
+#' }
+#'
+#'
+default_cv_fleets_process_error <- function(max_age,
+                                            num_fleets,
+                                            value = 0.1) {
+
+  return(matrix(value,
+                nrow = num_fleets,
+                ncol = max_age))
+
 
 }
 
