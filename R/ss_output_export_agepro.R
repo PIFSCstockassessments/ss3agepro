@@ -185,6 +185,45 @@ get_WAA_growth <- function(ss_objectlist,
 
 }
 
+
+#' Get Parameter Value per fleet
+#'
+#' Get Parameter Value per fleet
+#'
+#' @template ss_objectlist
+#' @param colname_prefix Character string to select to target parameter with for each fleet
+#' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
+#' with a yearly time step or as quarters as years. "Year" as Default.
+#'
+#'
+get_param_by_fleet <- function(ss_objectlist,
+                               colname_prefix,
+                               timestep = c("Year","Quarter")) {
+
+  timestep <- match.arg(timestep)
+
+  # TODO: colname_prefix validation
+  checkmate::assert_character(colname_prefix)
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
+
+
+
+  if(timestep == "Year") {
+    return(ss_objectlist$timeseries |>
+             dplyr::filter(.data$yr<= yr_end) |>
+             dplyr::select("Yr",dplyr::starts_with(colname_prefix)) |>
+             dplyr::group_by(.data$yr) |>
+             dplyr::summarize_all(sum))
+  }else if (timestep == "Quarter") {
+
+  }else{
+    stop("Invalid Operation")
+  }
+
+}
+
 #' Process Error parameter's default Coefficient of Variation
 #'
 #' Returns the vector of Coefficient of Variation (CV) values. The length of
@@ -327,6 +366,8 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
        get_ss_objectlist_parameter(ss_objectlist,"Wtlen_2_Fem_GP_1"))
   ss_agepro[["SSB_WAACV"]] <- default_cv_process_error(ss_agepro$MaxAge,
                                                        value = 0.1)
+
+  ss_agepro[["catchbyFleet"]]
 
 
 }
