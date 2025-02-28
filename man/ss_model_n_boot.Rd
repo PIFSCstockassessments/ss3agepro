@@ -24,4 +24,3 @@ Bootstrap run.
 Each Bootstrap run starter file will be saved as Data Boot Run File.
 }
 \keyword{Bootstrap}
-\keyword{internal}

@@ -91,7 +91,7 @@ setup_ss_bootstrap <- function (basemodel_dir,
 #' @template ss3_exe
 #'
 #' @keywords internal
-#' @keywords Bootstrap
+#' @export
 #'
 ss_model_bootstrap <- function (basemodel_dir,
                                  boot_dir,
@@ -99,6 +99,7 @@ ss_model_bootstrap <- function (basemodel_dir,
                                  ss3_exe = "ss3.exe") {
 
   checkmate::assert_directory_exists(basemodel_dir)
+  checkmate::assert_numeric(n_boot)
 
 
   #Check of In Case ss3 binary exists in basemodel_dir, if not
@@ -140,7 +141,7 @@ ss_model_bootstrap <- function (basemodel_dir,
 #' @param ss3_exe ss3_exe
 #'
 #' @keywords Bootstrap
-#' @keywords internal
+#' @export
 #'
 ss_model_n_boot <- function(basemodel_dir,
                               boot_dir,
@@ -218,7 +219,7 @@ ss_model_n_boot <- function(basemodel_dir,
 #' Default is TRUE.
 #'
 #' @keywords Bootstrap
-#' @keywords internal
+#' @export
 #'
 copy_sso_n_boot <- function(boot_dir,
                             n_boot,

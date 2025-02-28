@@ -33,4 +33,3 @@ bootstrap directory. Each copied bootstrap run file will be renamed to
 have a bootstrap run identifier.
 }
 \keyword{Bootstrap}
-\keyword{internal}
