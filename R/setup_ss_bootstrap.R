@@ -50,6 +50,7 @@ setup_ss_bootstrap <- function (basemodel_dir,
 
   checkmate::assert_directory_exists(basemodel_dir)
   checkmate::assert_directory_exists(bootstrap_outdir)
+  checkmate::assert_numeric(n_boot)
 
   # Key directory: boot_dir
   boot_dir <- bootstrap_outdir
@@ -60,7 +61,7 @@ setup_ss_bootstrap <- function (basemodel_dir,
   }
 
   #Run Model to SS Once to generate data bootstrap files
-  ss_model_bootstrap(basemodel_dir, boot_dir, ss3_exe)
+  ss_model_bootstrap(basemodel_dir, boot_dir, n_boot, ss3_exe)
 
   # Set up each bootstrap run in its own folder, to help with running SS in parallel
   Lt <- ss_model_n_boot(n_boot, basemodel_dir, boot_dir)
