@@ -31,9 +31,9 @@
 #' \dontrun{
 #' #Import Basemodel from inst/01_base and output Bootstraps to inst/bsn_output
 #' basemodel_dir <- file.path(find.package("sso.agepro"),"01_base")
-#' output_dir <- file.path(tempdir(),"inst","bsn_output")
+#' output_dir <- file.path(tempdir())# ,"inst","bsn_output")
 #'
-#' setup_ss_bootstrap(basemodel_dir, bootstrap_output = output_dir, n_boot = 10)
+#' setup_ss_bootstrap(basemodel_dir, bootstrap_outdir = output_dir, n_boot = 10)
 #'
 #' }
 #'
