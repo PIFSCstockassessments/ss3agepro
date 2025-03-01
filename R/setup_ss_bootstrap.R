@@ -64,7 +64,7 @@ setup_ss_bootstrap <- function (basemodel_dir,
   ss_model_bootstrap(basemodel_dir, boot_dir, n_boot, ss3_exe)
 
   # Set up each bootstrap run in its own folder, to help with running SS in parallel
-  Lt <- ss_model_n_boot(n_boot, basemodel_dir, boot_dir)
+  Lt <- ss_model_n_boot(basemodel_dir, boot_dir, n_boot)
 
   run_parallel(Lt)
 
@@ -149,16 +149,16 @@ ss_model_n_boot <- function(basemodel_dir,
                               ss3_exe = "ss3.exe") {
 
   #validate Base Model Report
-  checkmate::assert_file_exists(file.path(basemodel_dir,"Report.sso"))
+  checkmate::assert_file_exists(file.path(boot_dir,"Report.sso"))
 
   #Validate Base Model CompReport
-  checkmate::assert_file_exists(file.path(basemodel_dir,"CoReport.sso"))
+  checkmate::assert_file_exists(file.path(boot_dir,"CompReport.sso"))
 
   #Validate Base Model covar
-  checkmate::assert_file_exists(file.path(basemodel_dir,"Report.sso"))
+  checkmate::assert_file_exists(file.path(boot_dir,"Report.sso"))
 
   #Validate Base Model warning
-  checkmate::assert_file_exists(file.path(basemodel_dir,"Report.sso"))
+  checkmate::assert_file_exists(file.path(boot_dir,"Report.sso"))
 
 
   #create the bootstrap data file numbers (pad with leading 0s)
