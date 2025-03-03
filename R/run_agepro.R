@@ -27,7 +27,7 @@ run_parallel <- function(ss_dirlist, ss3_exe = "ss3.exe") {
 
   #Validate "Directories" in ss_dirlist exists
   for(xdir in 1:length(ss_dirlist)){
-    checkmate::assert_directory_exists(ss_dirlist)
+    checkmate::assert_directory_exists(ss_dirlist[[xdir]])
   }
 
 
