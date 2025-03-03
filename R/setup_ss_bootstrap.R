@@ -280,13 +280,13 @@ copy_sso_n_boot <- function(boot_dir,
 #' @template n_boot
 #'
 #' @keywords Bootstrap
-#' @keywords internal
+#' @export
 #'
 write_bsn_file <- function(boot_dir, bsn_outfile = "boot.bsn" , n_boot = 1){
 
   checkmate::assert_directory_exists(boot_dir)
 
-  endyr <- endyr_model(boot_dir)
+  endyr <- suppressWarnings(endyr_model(boot_dir))
 
   AgeStr.List <- list()
   for(i in 1:n_boot){

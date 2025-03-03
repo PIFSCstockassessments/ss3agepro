@@ -21,4 +21,3 @@ end of year model and derived quantities for each bootstrap run. Bootstrap
 data table output is written to file.
 }
 \keyword{Bootstrap}
-\keyword{internal}
