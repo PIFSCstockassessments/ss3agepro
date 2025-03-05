@@ -44,6 +44,21 @@
 #'  @author Michelle Sculley
 #'  @author Eric Fletcher
 #'
+#' @examples
+#' \dontrun{
+#'
+#'  # Setup For Bootstrap File and Directory
+#'  basemodel_dir <- file.path(find.package("sso.agepro"),"01_base")
+#'  bootstrap_dir <- file.path(tempdir())
+#'  setup_ss_bootstrap(basemodel_dir, bootstrap_dir, n_boot = 10)
+#'
+#'  # Call r4ss::SS_output to extract from Report.sso
+#'  ss_objectlist <- r4ss::SS_output(dir = bootstrap_dir, verbose = FALSE, printstats = FALSE)
+#'
+#'  ss_agepro <- ss_output_export_agepro(ss_objectlist)
+#'
+#' }
+#'
 ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter")){
 
 
