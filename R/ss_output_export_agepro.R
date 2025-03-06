@@ -201,38 +201,49 @@ get_WAA_growth <- function(ss_objectlist,
 }
 
 
-#' Get Parameter Value per fleet
+#' Get Timeseries Parameter Value
 #'
-#' Get Parameter Value per fleet
+#' Returns a matrix showing values for Stock Synthesis timeseries parameter.
+#' Target column  return timeeseries parameter values for all fleets, function
+#' will look. If timese
 #'
 #' @template ss_objectlist
-#' @param colname_prefix Character string to select to target parameter with for each fleet
+#' @param colname_param Character string to select to target parameter with for each fleet
 #' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
 #' with a yearly time step or as quarters as years. "Year" as Default.
 #'
+#' @keywords Internal
 #'
-get_param_by_fleet <- function(ss_objectlist,
-                               colname_prefix,
+get_timeseries_param <- function(ss_objectlist,
+                               colname_param,
                                timestep = c("Year","Quarter")) {
+
+  # Validate ss_objectlist
+  checkmate::assert_list(ss_objectlist)
+  checkmate::assert_names(names(ss_objectlist), must.include = "timeseries")
+  checkmate::assert_names(names(ss_objectlist$timeseries), type = unique)
 
   timestep <- match.arg(timestep)
 
-  # TODO: colname_prefix validation
-  checkmate::assert_character(colname_prefix)
+  # TODO: colname_param validation
+  # TODO: Determine to check target Fleet-Specfic Columns or not
+  checkmate::assert_character(colname_param)
 
   # Extract end year
   yr_end <- extract_end_year(ss_objectlist)
 
-
-
   if(timestep == "Year") {
     return(ss_objectlist$timeseries |>
              dplyr::filter(.data$yr<= yr_end) |>
-             dplyr::select("Yr",dplyr::starts_with(colname_prefix)) |>
+             dplyr::select("Yr",dplyr::starts_with(colname_param)) |>
              dplyr::group_by(.data$yr) |>
              dplyr::summarize_all(sum))
   }else if (timestep == "Quarter") {
-
+    return(ss_objectlist$timeseries |>
+        dplyr::filter(.data$Yr <= yr_end) |>
+        dplyr::select(dplyr::starts_with(colname_param)) |>
+        data.table::melt(id.vars = c("Yr","Seas")) |>
+        data.table::dcast(.data$Yr ~ .data$variable + .data$Seas))
   }else{
     stop("Invalid Operation")
   }
