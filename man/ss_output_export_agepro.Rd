@@ -40,9 +40,6 @@ This fuction Returns a list containing the the Stock Synthesis following values:
 \item \code{CatchByFleet} is the total catch by fleet in the last year/quarter of the model
 \item \code{FByFleet} Fishing Mortality by Fleet
 }
-
-@author Michelle Sculley
-@author Eric Fletcher
 }
 \description{
 Function to extract input data needed from the SS model to use in an agepro projection model
@@ -67,4 +64,9 @@ of fish to kilograms and numbers of fish by multiplying by 1000
 
 }
 
+}
+\author{
+Michelle Sculley
+
+Eric Fletcher
 }

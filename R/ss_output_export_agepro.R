@@ -41,8 +41,9 @@
 #'  * `CatchByFleet` is the total catch by fleet in the last year/quarter of the model
 #'  * `FByFleet` Fishing Mortality by Fleet
 #'
-#'  @author Michelle Sculley
-#'  @author Eric Fletcher
+#' @author Michelle Sculley
+#' @author Eric Fletcher
+#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -63,6 +64,8 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 
 
   ## TODO: Validate ss_objectlist
+
+  ## TODO: Check for SS_versionshort
 
   #Validate timestep parameter
   timestep <- match.arg(timestep)
@@ -204,8 +207,14 @@ get_WAA_growth <- function(ss_objectlist,
 #' Get Timeseries Parameter Value
 #'
 #' Returns a matrix showing values for Stock Synthesis timeseries parameter.
-#' Target column  return timeeseries parameter values for all fleets, function
-#' will look. If timese
+#' The function will return values that matches the column name, or column name
+#' prefixes for fleet-related columns, and return the target parameter
+#' included in the timeseries of the input stock synthesis object list.
+#'
+#' AGEPRO models timesteps are run by year. To facilitate models that run per
+#' quarterly time step, setting `timestep` parameter to `Quarter` will
+#' set quarters as years.
+#'
 #'
 #' @template ss_objectlist
 #' @param colname_param Character string to select to target parameter with for each fleet
@@ -393,7 +402,10 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   ss_agepro[["SSB_WAACV"]] <- default_cv_process_error(ss_agepro$MaxAge,
                                                        value = 0.1)
 
-  ss_agepro[["catchbyFleet"]]
+  ss_agepro[["CatchbyFleet"]] <-
+    get_timeseries_param(ss_objectlist, "sel(B):_")
+
+  ss_agepro[["FbyFleet"]] <- get_timeseries_param(ss_objectlist, "F:_")
 
 
 }
