@@ -7,8 +7,7 @@
 extract_end_year(ss_objectlist)
 }
 \arguments{
-\item{ss_objectlist}{Stock Synthesis list object data, primary from
-\code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
+\item{ss_objectlist}{Stock Synthesis list object data, primary from \code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
 }
 \description{
 Filters out the end year value based on the stock synthesis model

@@ -6,18 +6,27 @@
 \usage{
 get_timeseries_param(
   ss_objectlist,
-  colname_prefix,
+  colname_param,
   timestep = c("Year", "Quarter")
 )
 }
 \arguments{
 \item{ss_objectlist}{Stock Synthesis list object data, primary from \code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
 
-\item{colname_prefix}{Character string to select to target parameter with for each fleet}
+\item{colname_param}{Character string to select to target parameter with for each fleet}
 
 \item{timestep}{"Year" or "Quarter": Indicates is you are running AGEPRO
 with a yearly time step or as quarters as years. "Year" as Default.}
 }
 \description{
-Returns a matrix of values per fleet, determined by target parama
+Returns a matrix showing values for Stock Synthesis timeseries parameter.
+The function will return values that matches the column name, or column name
+prefixes for fleet-related columns, and return the target parameter
+included in the timeseries of the input stock synthesis object list.
 }
+\details{
+AGEPRO models timesteps are run by year. To facilitate models that run per
+quarterly time step, setting \code{timestep} parameter to \code{Quarter} will
+set quarters as years.
+}
+\keyword{Internal}

@@ -3,8 +3,7 @@
 #'
 #' Filters out the end year value based on the stock synthesis model
 #'
-#' @param ss_objectlist Stock Synthesis list object data, primary from
-#' [r4ss::SS_output()]
+#' @template ss_objectlist
 #'
 extract_end_year <- function(ss_objectlist) {
 
@@ -47,8 +46,10 @@ extract_end_year <- function(ss_objectlist) {
 #' }
 #'
 #'
-#'
 unique_selectivity_fleets <- function(ss_objectlist){
+
+  #Check ss_objectlist has
+
 
   num_fleets <- ss_objectlist$Fishery_SelAtAge |>
     dplyr::filter(.data$Yr == max(ss_objectlist$FbyFleet$Yr) ) |>
@@ -57,6 +58,31 @@ unique_selectivity_fleets <- function(ss_objectlist){
     dplyr::pull()
 
   return(num_fleets)
+}
+
+#' Check Stock Synthesis Numeric Version Number
+#'
+#' Custom checkmate function to compare Stock Synthesis Numeric Version Number.
+#' Includes minimum version check.
+#'
+#' @param x Numeric integer representing Stock Synthesis Version, found in
+#' ss_versionNumeric
+#' @param min_version Minimum SS version to compare Stock Synthesis object
+#' files. By default, it is 3.3.
+#'
+check_ss_versionNumeric <- function (x, min_version = 3.3) {
+
+  res <- checkmate::check_numeric(x)
+  if(!isTRUE(res)) {
+    return(res)
+  }
+
+  if(x >= min_version){
+    return("SS_versionNumeric is lower than minimun version")
+  }
+
+
+  return(TRUE)
 }
 
 
