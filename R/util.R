@@ -77,7 +77,7 @@ check_ss_versionNumeric <- function (x, min_version = 3.3) {
     return(res)
   }
 
-  if(x >= min_version){
+  if(x < min_version){
     return("SS_versionNumeric is lower than minimun version")
   }
 
