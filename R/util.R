@@ -70,6 +70,8 @@ unique_selectivity_fleets <- function(ss_objectlist){
 #' @param min_version Minimum SS version to compare Stock Synthesis object
 #' files. By default, it is 3.3.
 #'
+#' @export
+#'
 check_ss_versionNumeric <- function (x, min_version = 3.3) {
 
   res <- checkmate::check_numeric(x)
