@@ -15,31 +15,7 @@
 #' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
 #' with a yearly time step or as quarters as years. "Year" as Default.
 #'
-#' @return
-#' This fuction Returns a list containing the the Stock Synthesis following values:
-#'  * `Nfleets` is the total number of catch fleets in the SS3 Report file
-#'  * `alpha` is the alpha parameter of a Beverton Holt or Richards stock assessment function
-#'  * `beta` is the beta parameter of a beverton holt or richards stock assessment function
-#'  * `BH_Var` the sigmaR from the SS3 model, or the variance of the recruitment deviations
-#'  * `RecruitmentObs` is a datatable containing the predicted recruitment, SSB, and recruitment deviation for each year or quarter
-#'  * `MaxAge` is the Amax parameter from the SS3 model or maximum age, note for the Quarter time step this is maximum age in quarters (or `MaxAge\*4`)
-#'  * `MatAtAge` is a vector containing the probability of maturity at age by year or quarter
-#'  * `MatAtAgeCV` is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
-#'  * `Fishery_SelAtAge` datatables of the selectivity by age and CV for each of the Nfleets
-#'  * `Fishery_SelAtAgeCV` datatables of the selectivity by age and CV for each of the Nfleets
-#'  * `NatMort_atAge` vectors of the natural mortality by age in years or quarters and their CV
-#'  * `NatMort_atAgeCV` vectors of the natural mortality by age in years or quarters and their CV
-#'  * `Jan_WAA` is the weight-at-age of the stock on Jan-1
-#'  * `Jan_WAACV` CV of Weight-Of-Age of stock on Jan-1
-#'  * `MidYr_WAA` is the weight-at-age of the stock on July-1
-#'  * `MidYr_WAACV` CV of weight-at-age of the stock on July-1
-#'  * `SSB_WAA` SSB Weight of Age
-#'  * `SSB_WAACV` SSB Weight-of-Age
-#'  * `SSB_WAACV` CV of SSB Weight-Of-Age
-#'  * `Catage` Catch Weight-of-age by Nfleet
-#'  * `CatageCV` Catch Weight-of-Age CV by Nfleet
-#'  * `CatchByFleet` is the total catch by fleet in the last year/quarter of the model
-#'  * `FByFleet` Fishing Mortality by Fleet
+#' @template return_list_ss_agepro
 #'
 #' @author Michelle Sculley
 #' @author Eric Fletcher
@@ -57,6 +33,8 @@
 #'  ss_objectlist <- r4ss::SS_output(dir = bootstrap_dir, verbose = FALSE, printstats = FALSE)
 #'
 #'  ss_agepro <- ss_output_export_agepro(ss_objectlist)
+#'
+#'  #Filter For unique selectivity
 #'
 #' }
 #'
@@ -317,7 +295,7 @@ default_cv_fleets_process_error <- function(max_age,
 #' use maturity to give to calculate maturity at age
 #' \deqn{P_{mature}(L) = \frac{1}{(1 + exp(beta*(L-L_{50})))}}
 #'
-#'
+#' @template return_list_ss_agepro
 #'
 #' @template ss_objectlist
 #' @param ss_agepro Stock Synthesis Object List for AGEPRO parameters

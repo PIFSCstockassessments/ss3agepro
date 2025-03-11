@@ -62,6 +62,8 @@ of fish to kilograms and numbers of fish by multiplying by 1000
 
  ss_agepro <- ss_output_export_agepro(ss_objectlist)
 
+ #Filter For unique selectivity
+
 }
 
 }

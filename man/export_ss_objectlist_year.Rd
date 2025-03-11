@@ -2,18 +2,51 @@
 % Please edit documentation in R/ss_output_export_agepro.R
 \name{export_ss_objectlist_year}
 \alias{export_ss_objectlist_year}
-\title{Export Stock Synthesis Object List for AGEPRO by Year}
+\alias{export_ss_objectlist_quarter}
+\title{Export Stock Synthesis Object List for AGEPRO}
 \usage{
 export_ss_objectlist_year(ss_objectlist, ss_agepro)
+
+export_ss_objectlist_quarter(ss_objectlist, ss_agepro)
 }
 \arguments{
 \item{ss_objectlist}{Stock Synthesis list object data, primary from \code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
 
 \item{ss_agepro}{Stock Synthesis Object List for AGEPRO parameters}
 }
+\value{
+This fuction Returns a list containing the the Stock Synthesis following values:
+\itemize{
+\item \code{Nfleets} is the total number of catch fleets in the SS3 Report file
+\item \code{alpha} is the alpha parameter of a Beverton Holt or Richards stock assessment function
+\item \code{beta} is the beta parameter of a beverton holt or richards stock assessment function
+\item \code{BH_Var} the sigmaR from the SS3 model, or the variance of the recruitment deviations
+\item \code{RecruitmentObs} is a datatable containing the predicted recruitment, SSB, and recruitment deviation for each year or quarter
+\item \code{MaxAge} is the Amax parameter from the SS3 model or maximum age, note for the Quarter time step this is maximum age in quarters (or \verb{MaxAge\\*4})
+\item \code{MatAtAge} is a vector containing the probability of maturity at age by year or quarter
+\item \code{MatAtAgeCV} is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
+\item \code{Fishery_SelAtAge} datatables of the selectivity by age and CV for each of the Nfleets
+\item \code{Fishery_SelAtAgeCV} datatables of the selectivity by age and CV for each of the Nfleets
+\item \code{NatMort_atAge} vectors of the natural mortality by age in years or quarters and their CV
+\item \code{NatMort_atAgeCV} vectors of the natural mortality by age in years or quarters and their CV
+\item \code{Jan_WAA} is the weight-at-age of the stock on Jan-1
+\item \code{Jan_WAACV} CV of Weight-Of-Age of stock on Jan-1
+\item \code{MidYr_WAA} is the weight-at-age of the stock on July-1
+\item \code{MidYr_WAACV} CV of weight-at-age of the stock on July-1
+\item \code{SSB_WAA} SSB Weight of Age
+\item \code{SSB_WAACV} SSB Weight-of-Age
+\item \code{SSB_WAACV} CV of SSB Weight-Of-Age
+\item \code{Catage} Catch Weight-of-age by Nfleet
+\item \code{CatageCV} Catch Weight-of-Age CV by Nfleet
+\item \code{CatchByFleet} is the total catch by fleet in the last year/quarter of the model
+\item \code{FByFleet} Fishing Mortality by Fleet
+}
+}
 \description{
-Exports the Stock Synthesis Object List parameters that AGEPRO uses, using
-the Year time series.
+\code{export_ss_objectlist_year} exports the Stock Synthesis object
+list parameters that AGEPRO uses, using the Year time series.
+\code{export_ss_objectlist_quarter} will do the same, but in quarterly
+time steps.
 }
 \details{
 The function will gather the parameter and CV table for Maturity, Fishery
