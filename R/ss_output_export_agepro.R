@@ -88,12 +88,14 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 #'
 set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 
-  ## TODO Refactor to validation function
+  # Ensure ss_objectlist has the right parameters to select
+  objectlist_params <- c("recruit","parameters","derived_quants")
   # Validate ss_objectlist
-  checkmate::assert_list(ss_objectlist)
-  recruit_params <- c("RecruitmentObs","alpha","beta","BH_Var")
-  checkmate::assert_names(names(ss_objectlist), permutation.of = recruit_params)
-  checkmate::assert_list(ss_agepro)
+  checkmate::assert(
+    checkmate::check_list(ss_objectlist),
+    checkmate::check_names(names(ss_objectlist), must.include = objectlist_params),
+    checkmate::check_list(ss_agepro)
+  )
 
 
   ss_agepro[["RecruitmentObs"]] <- ss_objectlist$recruit[,c("Yr","SpawnBio","pred_recr","dev")]
