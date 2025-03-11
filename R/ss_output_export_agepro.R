@@ -50,7 +50,7 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   ss_agepro <- list()
 
   # Number of Fleets
-  ss_agepro[["Nfleets"]] <- length(unique(unique_selectivity_fleets(ss_objectlist)))
+  ss_agepro[["Nfleets"]] <- length(which(ss_objectlist[["fleet_type"]] == 1)) #length(unique(unique_selectivity_fleets(ss_objectlist)))
 
   ## TODO: Make this flexable enough for AGEPRO Recruitment
   # Set RECRUIT values
