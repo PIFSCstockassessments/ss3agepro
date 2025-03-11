@@ -62,13 +62,12 @@
 #'
 ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter")){
 
-
-  ## TODO: Validate ss_objectlist
-
-  ## TODO: Check for SS_versionshort
-
   #Validate timestep parameter
   timestep <- match.arg(timestep)
+
+  ## Validation: Check for ss_objectlist, and version (SS_versionNumeric)
+  checkmate::assert(checkmate::check_list(ss_objectlist),
+                    check_ss_versionNumeric(ss_objectlist$SSversionNumeric))
 
   ss_agepro <- list()
 
