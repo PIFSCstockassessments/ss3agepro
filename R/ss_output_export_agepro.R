@@ -280,10 +280,12 @@ default_cv_fleets_process_error <- function(max_age,
 
 }
 
-#' Export Stock Synthesis Object List for AGEPRO by Year
+#' Export Stock Synthesis Object List for AGEPRO
 #'
-#' Exports the Stock Synthesis Object List parameters that AGEPRO uses, using
-#' the Year time series.
+#' `export_ss_objectlist_year` exports the Stock Synthesis object
+#' list parameters that AGEPRO uses, using the Year time series.
+#' `export_ss_objectlist_quarter` will do the same, but in quarterly
+#' time steps.
 #'
 #' The function will gather the parameter and CV table for Maturity, Fishery
 #' Selectivity Of Age, Weights of Age (Jan-1, Spawning Stock
@@ -385,13 +387,67 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   ss_agepro[["FbyFleet"]] <- get_timeseries_param(ss_objectlist, "F:_")
 
 
+  return(ss_agepro)
+
 }
 
+#' @rdname export_ss_objectlist_year
+#'
 export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   # Extract end year
   yr_end <- extract_end_year(ss_objectlist)
 
+  # Maturity
+  ss_agepro[["MaxAge"]] <- ss_objectlist$accuage*4
+
+  # Maturity at age, from age 1
+  # Length at age then use maturity to give to calculate maturity at age
+  ## Pmature(L) = 1 / (1 + exp(beta*(L-L50)))
+
+  mat_beta <- get_ss_objectlist_parameter(ss_objectlist, "Mat_slope_Fem_GP_1")
+  mat_L <- seq(1,ss_agepro[["MaxAge"]]/4,0.25)
+  mat_L50 <- get_ss_objectlist_parameter(ss_objectlist, "Mat50%_Fem_GP_1")
+
+  ss_agepro[["MatAtAge"]] <- 1 / ( 1 + exp( mat_beta * (mat_L - mat_L50)))
+  ss_agepro[["MatAtAgeCV"]] <- rep(0.01, ss_agepro[["MaxAge"]])
+
+
+  ## Fishery Selectivity at age
+
+  ss_agepro[["Fishery_SelAtAge"]] <- ss_agepro$ageselex |>
+    dplyr::filter(.data$Factor == "Asel2",
+                  .data$Yr <= yr_end,
+                  .data$Fleet <= ss_agepro[["Nfleets"]]) |>
+    {\(.) dplyr::select("Yr","Fleet","Seas",9:ncol(.))}()
+
+  ss_agepro[["Fishery_SelAtAgeCV"]] <- matrix(0.1,
+                                              nrow = ss_agepro[["Nfleets"]],
+                                              ncol = ss_agepro[["MaxAge"]])
+
+
+  ss_agepro[["NatMort_atAge"]] <-
+    ss_objectlist$Natural_Mortality |>
+    {\(.) dplyr::select(6:ncol(.))}() |>
+    data.table::melt() |>
+    dplyr::select(.data$value)
+
+  ss_agepro[["NatMort_atAgeCV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
+
+
+  ## Weights of Age
+
+  # JAN-1
+
+  ss_agepro[["Jan_WAA"]] <- get_WAA_growth(ss_objectlist,
+                                           timestep = "Quarter")
+
+  ss_agepro[["Jan_WAACV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
+
+
+
+
+  return(ss_agepro)
 }
 
 
