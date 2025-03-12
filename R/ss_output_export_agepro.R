@@ -60,10 +60,15 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 
   #indicate if you are doing yearly or years as quarters
   switch(timestep,
-         "Year" = export_ss_objectlist_year(ss_objectlist,
-                                            ss_agepro),
-         "Quarter" = export_ss_objectlist_quarter(ss_objectlist,
-                                                  ss_agepro))
+         "Year" = {
+           ss_agepro <- export_ss_objectlist_year(ss_objectlist,
+                                                  ss_agepro)
+           },
+         "Quarter" = {
+           ss_agepro <- export_ss_objectlist_quarter(ss_objectlist,
+                                                     ss_agepro)
+           }
+        )
 
   return(ss_agepro)
 }
