@@ -164,14 +164,14 @@ get_WAA_growth <- function(ss_objectlist,
           .data$Seas == 1,
           .data$SubSeas == 1
           ) |>
-        {\(.) dplyr::select(6:ncol(.))}() |>
+        dplyr::select(6:ncol(ss_objectlist$growthseries)) |>
         unlist()
       )
   }else if(timestep == "Quarter"){
     return(
       ss_objectlist$growthseries |>
         dplyr::filter(.data$Yr == yr_end, .data$SubSeas == 1) |>
-        {\(.) dplyr::select(6:ncol(.))}() |>
+        dplyr::select(6:ncol(ss_objectlist$growthseries)) |>
         data.table::melt() |>
         dplyr::select(2) |>
         as.vector()
@@ -337,7 +337,9 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
                   .data$Yr <= yr_end,
                   .data$Seas == 1,
                   .data$Fleet <= ss_agepro$Nfleets) |>
-    {\(.) dplyr::select("Yr","Fleet",9:ncol(.))}()
+    dplyr::select("Yr","Fleet",9:ncol(ss_objectlist$ageselex))
+                #select("Yr","Fleet",9:ncol(.))
+
 
   ##Fishery_seleatage coefficient of variation, set to a standard 0.1
   ss_agepro[["Fishery_SelAtAgeCV"]] <- matrix(0.1,
@@ -348,7 +350,7 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
 
   ss_agepro[["NatMort_atAge"]] <- ss_objectlist$Natural_Mortality |>
     dplyr::slice(1) |>
-    {\(.) dplyr::select(6:ncol(.))}()
+    dplyr::select(6:ncol(ss_objectlist$Natural_Mortality))
 
   ss_agepro[["NatMort_atAgeCV"]] <- rep(0.01,ss_agepro$MaxAge)
 
@@ -421,7 +423,7 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
     dplyr::filter(.data$Factor == "Asel2",
                   .data$Yr <= yr_end,
                   .data$Fleet <= ss_agepro[["Nfleets"]]) |>
-    {\(.) dplyr::select("Yr","Fleet","Seas",9:ncol(.))}()
+    dplyr::select("Yr","Fleet","Seas",9:ncol(ss_objectlist$ageselex))
 
   ss_agepro[["Fishery_SelAtAgeCV"]] <- matrix(0.1,
                                               nrow = ss_agepro[["Nfleets"]],
