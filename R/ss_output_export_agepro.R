@@ -471,6 +471,19 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   ss_agepro[["Jan_WAACV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
 
+  # SSB
+
+  ss_agepro[["SSB_WAA"]] <- get_WAA_growth(ss_objectlist,
+                                           timestep = "Quarter")
+  ss_agepro[["SSB_WAACV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
+
+  # mid-year
+
+  ss_agepro[["MidYear_WAA"]] <- get_WAA_growth(ss_objectlist,
+                                             timestep = "Quarter")
+  ss_agepro[["MidYear_WAACV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
+
+  ## Catch at Age
 
 
 
