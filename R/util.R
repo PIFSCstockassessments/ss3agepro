@@ -14,11 +14,11 @@ extract_end_year <- function(ss_objectlist) {
     dplyr::filter(str_detect(.data$Label,"F_")) |>
     dplyr::select("Label")
 
-  endyr <- max( as.numeric(
+  endyr <- suppressWarnings(max( as.numeric(
     stringr::str_sub(drvquants$Label,
                      stringr::str_length(drvquants$Label)-3,
                      stringr::str_length(drvquants$Label)) ),
-    na.rm = TRUE )
+    na.rm = TRUE ))
 
   return(endyr)
 }
