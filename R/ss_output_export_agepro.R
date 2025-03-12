@@ -209,7 +209,7 @@ get_timeseries_param <- function(ss_objectlist,
   # Validate ss_objectlist
   checkmate::assert_list(ss_objectlist)
   checkmate::assert_names(names(ss_objectlist), must.include = "timeseries")
-  checkmate::assert_names(names(ss_objectlist$timeseries), type = unique)
+  checkmate::assert_names(names(ss_objectlist$timeseries), type = "unique")
 
   timestep <- match.arg(timestep)
 
