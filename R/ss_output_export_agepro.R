@@ -222,9 +222,9 @@ get_timeseries_param <- function(ss_objectlist,
 
   if(timestep == "Year") {
     return(ss_objectlist$timeseries |>
-             dplyr::filter(.data$yr<= yr_end) |>
+             dplyr::filter(.data$Yr <= yr_end) |>
              dplyr::select("Yr",dplyr::starts_with(colname_param)) |>
-             dplyr::group_by(.data$yr) |>
+             dplyr::group_by(.data$Yr) |>
              dplyr::summarize_all(sum))
   }else if (timestep == "Quarter") {
     return(ss_objectlist$timeseries |>
@@ -432,7 +432,7 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   ss_agepro[["NatMort_atAge"]] <-
     ss_objectlist$Natural_Mortality |>
-    {\(.) dplyr::select(6:ncol(.))}() |>
+    dplyr::select(6:ncol(ss_objectlist$Natural_Mortality)) |>
     data.table::melt() |>
     dplyr::select(.data$value)
 
