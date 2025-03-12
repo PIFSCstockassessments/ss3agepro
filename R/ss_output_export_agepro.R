@@ -172,9 +172,10 @@ get_WAA_growth <- function(ss_objectlist,
       ss_objectlist$growthseries |>
         dplyr::filter(.data$Yr == yr_end, .data$SubSeas == 1) |>
         dplyr::select(6:ncol(ss_objectlist$growthseries)) |>
-        data.table::melt() |>
+        reshape2::melt() |>
         dplyr::select(2) |>
-        as.vector()
+        as.vector() |>
+        suppressMessages()
     )
   }else{
     stop("Invalid Operation")
@@ -230,8 +231,9 @@ get_timeseries_param <- function(ss_objectlist,
     return(ss_objectlist$timeseries |>
         dplyr::filter(.data$Yr <= yr_end) |>
         dplyr::select(dplyr::starts_with(colname_param)) |>
-        data.table::melt(id.vars = c("Yr","Seas")) |>
-        data.table::dcast(.data$Yr ~ .data$variable + .data$Seas))
+        reshape2::melt(id.vars = c("Yr","Seas")) |>
+        data.table::dcast(.data$Yr ~ .data$variable + .data$Seas)) |>
+        suppressMessages()
   }else{
     stop("Invalid Operation")
   }
@@ -433,8 +435,10 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
   ss_agepro[["NatMort_atAge"]] <-
     ss_objectlist$Natural_Mortality |>
     dplyr::select(6:ncol(ss_objectlist$Natural_Mortality)) |>
-    data.table::melt() |>
-    dplyr::select(.data$value)
+    reshape2::melt() |>
+    dplyr::select(.data$value) |>
+    suppressMessages()
+
 
   ss_agepro[["NatMort_atAgeCV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
 
@@ -442,7 +446,6 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
   ## Weights of Age
 
   # JAN-1
-
   ss_agepro[["Jan_WAA"]] <- get_WAA_growth(ss_objectlist,
                                            timestep = "Quarter")
 
