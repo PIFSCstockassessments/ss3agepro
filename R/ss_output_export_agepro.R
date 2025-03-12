@@ -417,7 +417,7 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   ## Fishery Selectivity at age
 
-  ss_agepro[["Fishery_SelAtAge"]] <- ss_agepro$ageselex |>
+  ss_agepro[["Fishery_SelAtAge"]] <- ss_objectlist$ageselex |>
     dplyr::filter(.data$Factor == "Asel2",
                   .data$Yr <= yr_end,
                   .data$Fleet <= ss_agepro[["Nfleets"]]) |>
