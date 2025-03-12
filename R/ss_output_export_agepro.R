@@ -17,6 +17,8 @@
 #'
 #' @template return_list_ss_agepro
 #'
+#' @importFrom reshape2 melt
+#'
 #' @author Michelle Sculley
 #' @author Eric Fletcher
 #' @export

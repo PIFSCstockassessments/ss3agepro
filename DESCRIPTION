@@ -13,6 +13,7 @@ Imports:
   magrittr,
   r4ss,
   rlang,
+  reshape2,
   stringr,
   this.path,
   tidyverse
