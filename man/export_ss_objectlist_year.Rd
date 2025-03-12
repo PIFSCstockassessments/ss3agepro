@@ -36,8 +36,8 @@ This fuction Returns a list containing the the Stock Synthesis following values:
 \item \code{SSB_WAA} SSB Weight of Age
 \item \code{SSB_WAACV} SSB Weight-of-Age
 \item \code{SSB_WAACV} CV of SSB Weight-Of-Age
-\item \code{Catage} Catch Weight-of-age by Nfleet
-\item \code{CatageCV} Catch Weight-of-Age CV by Nfleet
+\item \code{CatchAtAge} Catch Weight-of-age by Nfleet
+\item \code{CatchAtAgeCV} Catch Weight-of-Age CV by Nfleet
 \item \code{CatchByFleet} is the total catch by fleet in the last year/quarter of the model
 \item \code{FByFleet} Fishing Mortality by Fleet
 }

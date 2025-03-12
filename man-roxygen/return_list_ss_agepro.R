@@ -19,7 +19,7 @@
 #'  * `SSB_WAA` SSB Weight of Age
 #'  * `SSB_WAACV` SSB Weight-of-Age
 #'  * `SSB_WAACV` CV of SSB Weight-Of-Age
-#'  * `Catage` Catch Weight-of-age by Nfleet
-#'  * `CatageCV` Catch Weight-of-Age CV by Nfleet
+#'  * `CatchAtAge` Catch Weight-of-age by Nfleet
+#'  * `CatchAtAgeCV` Catch Weight-of-Age CV by Nfleet
 #'  * `CatchByFleet` is the total catch by fleet in the last year/quarter of the model
 #'  * `FByFleet` Fishing Mortality by Fleet

@@ -394,6 +394,19 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   ss_agepro[["SSB_WAACV"]] <- default_cv_process_error(ss_agepro$MaxAge,
                                                        value = 0.1)
 
+  ## Catch at Age
+  ss_agepro[["CatchAtAge"]] <- ss_objectlist$ageselex |>
+    dplyr::filter(.data$Factor == "bodywt",
+                  .data$yr <= yr_end,
+                  .data$Seas == 1,
+                  .data$Fleet <= ss_agepro[["Nfleets"]]) |>
+    dplyr::select("Yr", "Select", 9:ncol(ss_objectlist[["ageselex"]]))
+
+  ss_agepro[["CatchAtAgeCV"]] <-
+    as.data.frame(matrix(0.1,
+                         nrow=ss_objectlist[["Nfleets"]],
+                         ncol=(ncol(ss_objectlist[["CatchAtAge"]])-1)))
+
   ss_agepro[["CatchbyFleet"]] <-
     get_timeseries_param(ss_objectlist, "sel(B):_")
 
