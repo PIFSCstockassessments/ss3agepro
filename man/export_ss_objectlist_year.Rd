@@ -31,8 +31,8 @@ This fuction Returns a list containing the the Stock Synthesis following values:
 \item \code{NatMort_atAgeCV} vectors of the natural mortality by age in years or quarters and their CV
 \item \code{Jan_WAA} is the weight-at-age of the stock on Jan-1
 \item \code{Jan_WAACV} CV of Weight-Of-Age of stock on Jan-1
-\item \code{MidYr_WAA} is the weight-at-age of the stock on July-1
-\item \code{MidYr_WAACV} CV of weight-at-age of the stock on July-1
+\item \code{MidYear_WAA} is the weight-at-age of the stock on July-1
+\item \code{MidYear_WAACV} CV of weight-at-age of the stock on July-1
 \item \code{SSB_WAA} SSB Weight of Age
 \item \code{SSB_WAACV} SSB Weight-of-Age
 \item \code{SSB_WAACV} CV of SSB Weight-Of-Age

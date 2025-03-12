@@ -376,12 +376,12 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
 
   # Mid-Year
 
-  ss_agepro[["MidYr_WAA"]] <- get_WAA_growth(ss_objectlist, "Year")
-  ss_agepro[["MidYr_WAA"]] <-
+  ss_agepro[["MidYear_WAA"]] <- get_WAA_growth(ss_objectlist, "Year")
+  ss_agepro[["MidYear_WAA"]] <-
     get_ss_objectlist_parameter(ss_objectlist, "wtlen_1_Fem_GP_1") *
-    (ss_agepro[["Midyr_WAA"]] ^
+    (ss_agepro[["Midyear_WAA"]] ^
        get_ss_objectlist_parameter(ss_objectlist, "Wtlen_2_Fem_GP_1"))
-  ss_agepro[["SSB_WAACV"]] <- default_cv_process_error(ss_agepro$MaxAge,
+  ss_agepro[["MidYear_WAACV"]] <- default_cv_process_error(ss_agepro$MaxAge,
                                                        value = 0.1)
 
   #SSB

@@ -14,8 +14,8 @@
 #'  * `NatMort_atAgeCV` vectors of the natural mortality by age in years or quarters and their CV
 #'  * `Jan_WAA` is the weight-at-age of the stock on Jan-1
 #'  * `Jan_WAACV` CV of Weight-Of-Age of stock on Jan-1
-#'  * `MidYr_WAA` is the weight-at-age of the stock on July-1
-#'  * `MidYr_WAACV` CV of weight-at-age of the stock on July-1
+#'  * `MidYear_WAA` is the weight-at-age of the stock on July-1
+#'  * `MidYear_WAACV` CV of weight-at-age of the stock on July-1
 #'  * `SSB_WAA` SSB Weight of Age
 #'  * `SSB_WAACV` SSB Weight-of-Age
 #'  * `SSB_WAACV` CV of SSB Weight-Of-Age
