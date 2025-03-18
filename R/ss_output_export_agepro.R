@@ -12,7 +12,7 @@
 #'
 #' @param ss_objectlist Stock Synthesis list object data, primary from
 #' [r4ss::SS_output()]
-#' @template timestep
+#' @template timestep-param
 #'
 #' @template return_list_ss_agepro
 #'
@@ -147,7 +147,7 @@ get_ss_objectlist_parameter <- function(ss_objectlist, ss_label){
 #'
 #'
 #' @template ss_objectlist
-#' @template timestep
+#' @template timestep-param
 #'
 #'
 get_WAA_growth <- function(ss_objectlist,
@@ -203,7 +203,7 @@ get_WAA_growth <- function(ss_objectlist,
 #'
 #' @template ss_objectlist
 #' @param colname_param Character string to select to target parameter with for each fleet
-#' @template timestep
+#' @template timestep-param
 #'
 #' @keywords Internal
 #'
