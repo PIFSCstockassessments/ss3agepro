@@ -12,8 +12,7 @@
 #'
 #' @param ss_objectlist Stock Synthesis list object data, primary from
 #' [r4ss::SS_output()]
-#' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
-#' with a yearly time step or as quarters as years. "Year" as Default.
+#' @template timestep
 #'
 #' @template return_list_ss_agepro
 #'
@@ -148,8 +147,7 @@ get_ss_objectlist_parameter <- function(ss_objectlist, ss_label){
 #'
 #'
 #' @template ss_objectlist
-#' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
-#' with a yearly time step or as quarters as years. "Year" as Default.
+#' @template timestep
 #'
 #'
 get_WAA_growth <- function(ss_objectlist,
@@ -205,8 +203,7 @@ get_WAA_growth <- function(ss_objectlist,
 #'
 #' @template ss_objectlist
 #' @param colname_param Character string to select to target parameter with for each fleet
-#' @param timestep "Year" or "Quarter": Indicates is you are running AGEPRO
-#' with a yearly time step or as quarters as years. "Year" as Default.
+#' @template timestep
 #'
 #' @keywords Internal
 #'
