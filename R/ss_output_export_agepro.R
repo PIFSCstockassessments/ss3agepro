@@ -244,6 +244,62 @@ get_timeseries_param <- function(ss_objectlist,
 
 }
 
+#' Returns Catch At Age by Fleet Value
+#'
+#' Returns a matrix containing the Catch by fleet parameter filers from the
+#' stock synthesis ageselex parameter. This function will return values that
+#' matches the column name, or column name prefixes for fleet-related columns,
+#' the number of fleets,
+#' and return the target parameter included in the ageselex
+#' of the input stock synthesis object list.
+#'
+#' @template timestep-detail
+#'
+#' @template ss_objectlist
+#' @param num_fleets Number of fleets
+#' @template timestep-param
+#'
+#'
+get_catchAtAge <- function(ss_objectlist,
+                           num_fleets,
+                           timestep = c("Year", "Quarter")) {
+
+  #Verify timeseries
+  timeseries <- match.arg(timeseries)
+
+  # TODO: Validate ss_objectlist, num_fleets
+
+  # Extract end year
+  yr_end <- extract_end_year(ss_objectlist)
+
+
+  if(timestep == "Year") {
+    return(
+      ss_objectlist[["ageselex"]] |>
+        dplyr::filter(.data$Factor == "bodywt",
+                      .data$yr <= yr_end,
+                      .data$Seas == 1,
+                      .data$Fleet <= num_fleets) |>
+        dplyr::select("Yr","Fleet",9:ncol(ss_objectlist[["ageselex"]]))
+    )
+  }else if(timestep == "Quarter") {
+    return(
+      ss_objectlist[["ageselex"]] |>
+        dplyr::filter(.data$Factor == "bodywt",
+                      .data$yr <= yr_end,
+                      .data$Fleet <= num_fleets) |>
+        dplyr::select("Fleet", "Yr", "Seas", 9:ncol(ss_objectlist[["ageselex"]])) |>
+        reshape2::melt(id.vars = c("Yr","Seas", "Fleet")) |>
+        data.table::dcast(.data$Fleet + .data$yr ~ .data$variable + .data$Seas )
+    )
+  }else{
+    stop("Invalid Operation")
+  }
+
+
+}
+
+
 #' Process Error parameter's default Coefficient of Variation
 #'
 #' Returns the vector of Coefficient of Variation (CV) values. The length of
