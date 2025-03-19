@@ -286,7 +286,7 @@ get_catchAtAge <- function(ss_objectlist,
     return(
       ss_objectlist[["ageselex"]] |>
         dplyr::filter(.data$Factor == "bodywt",
-                      .data$yr <= yr_end,
+                      .data$Yr <= yr_end,
                       .data$Seas == 1,
                       .data$Fleet <= num_fleets) |>
         dplyr::select("Yr","Fleet",9:ncol(ss_objectlist[["ageselex"]]))
@@ -295,11 +295,11 @@ get_catchAtAge <- function(ss_objectlist,
     return(
       ss_objectlist[["ageselex"]] |>
         dplyr::filter(.data$Factor == "bodywt",
-                      .data$yr <= yr_end,
+                      .data$Yr <= yr_end,
                       .data$Fleet <= num_fleets) |>
         dplyr::select("Fleet", "Yr", "Seas", 9:ncol(ss_objectlist[["ageselex"]])) |>
         reshape2::melt(id.vars = c("Yr","Seas", "Fleet")) |>
-        data.table::dcast(.data$Fleet + .data$yr ~ .data$variable + .data$Seas )
+        data.table::dcast(.data$Fleet + .data$Yr ~ .data$variable + .data$Seas )
     )
   }else{
     stop("Invalid Operation")
@@ -459,15 +459,15 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
   ## Catch at Age
   ss_agepro[["CatchAtAge"]] <- ss_objectlist$ageselex |>
     dplyr::filter(.data$Factor == "bodywt",
-                  .data$yr <= yr_end,
+                  .data$Yr <= yr_end,
                   .data$Seas == 1,
                   .data$Fleet <= ss_agepro[["Nfleets"]]) |>
-    dplyr::select("Yr", "Select", 9:ncol(ss_objectlist[["ageselex"]]))
+    dplyr::select("Yr", "Fleet", 9:ncol(ss_objectlist[["ageselex"]]))
 
   ss_agepro[["CatchAtAgeCV"]] <-
     as.data.frame(matrix(0.1,
-                         nrow=ss_objectlist[["Nfleets"]],
-                         ncol=(ncol(ss_objectlist[["CatchAtAge"]])-1)))
+                         nrow=ss_agepro[["Nfleets"]],
+                         ncol=(ncol(ss_agepro[["CatchAtAge"]])-1)))
 
   ss_agepro[["CatchbyFleet"]] <-
     get_timeseries_param(ss_objectlist, "sel(B):_")
