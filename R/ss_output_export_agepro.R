@@ -298,8 +298,9 @@ get_catchAtAge <- function(ss_objectlist,
                       .data$Yr <= yr_end,
                       .data$Fleet <= num_fleets) |>
         dplyr::select("Fleet", "Yr", "Seas", 9:ncol(ss_objectlist[["ageselex"]])) |>
-        reshape2::melt(id.vars = c("Yr","Seas", "Fleet")) |>
-        data.table::dcast(.data$Fleet + .data$Yr ~ .data$variable + .data$Seas )
+        data.table::as.data.table() |>
+        data.table::melt.data.table(id.vars = c("Yr","Seas","Fleet")) |>
+        data.table::dcast.data.table(Fleet + Yr ~ variable + Seas )
     )
   }else{
     stop("Invalid Operation")
@@ -547,6 +548,10 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   ## Catch at Age
 
+  ss_agepro[["CatchAtAge"]] <-
+    get_catchAtAge(ss_objectlist,
+                   num_fleets = ss_agepro[["Nfleets"]],
+                   timestep = "Quarter")
 
 
   return(ss_agepro)
