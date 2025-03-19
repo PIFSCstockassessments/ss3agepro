@@ -267,7 +267,7 @@ get_catchAtAge <- function(ss_objectlist,
                            timestep = c("Year", "Quarter")) {
 
   #Verify timeseries
-  timeseries <- match.arg(timeseries)
+  timestep <- match.arg(timestep)
 
   # Validate ss_objectlist, num_fleets
   checkmate::assert(
