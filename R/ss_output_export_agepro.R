@@ -46,7 +46,8 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 
   ## Validation: Check for ss_objectlist, and version (SS_versionNumeric)
   checkmate::assert(checkmate::check_list(ss_objectlist),
-                    check_ss_versionNumeric(ss_objectlist$SSversionNumeric))
+                    check_ss_versionNumeric(ss_objectlist$SS_versionNumeric),
+                    combine = "and")
 
   ss_agepro <- list()
 
@@ -100,7 +101,8 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
   checkmate::assert(
     checkmate::check_list(ss_objectlist),
     checkmate::check_names(names(ss_objectlist), must.include = objectlist_params),
-    checkmate::check_list(ss_agepro)
+    checkmate::check_list(ss_agepro),
+    combine = "and"
   )
 
 
@@ -267,7 +269,14 @@ get_catchAtAge <- function(ss_objectlist,
   #Verify timeseries
   timeseries <- match.arg(timeseries)
 
-  # TODO: Validate ss_objectlist, num_fleets
+  # Validate ss_objectlist, num_fleets
+  checkmate::assert(
+    checkmate::check_list(ss_objectlist),
+    checkmate::check_number(num_fleets, lower = 1),
+    checkmate::check_names(names(ss_objectlist), must.include = "ageselex"),
+    checkmate::check_names(names(ss_objectlist$ageselex), type = "unique"),
+    combine = "and"
+  )
 
   # Extract end year
   yr_end <- extract_end_year(ss_objectlist)
