@@ -546,12 +546,27 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
                                              timestep = "Quarter")
   ss_agepro[["MidYear_WAACV"]] <- rep(0.1, ss_agepro[["MaxAge"]])
 
-  ## Catch at Age
+  ## Catch at Age (CATCH_WEIGHT)
 
   ss_agepro[["CatchAtAge"]] <-
     get_catchAtAge(ss_objectlist,
                    num_fleets = ss_agepro[["Nfleets"]],
                    timestep = "Quarter")
+
+  ss_agepro[["CatchAtAgeCV"]] <-
+    as.data.frame(matrix(0.1,
+                         nrow=ss_agepro[["Nfleets"]],
+                         ncol=(ncol(ss_agepro[["CatchAtAge"]])-1)))
+
+  ## Biomass - Catch By Fleet
+
+  ss_agepro[["CatchbyFleet"]] <-
+    get_timeseries_param(ss_objectlist, "sel(B):_", timestep = "Quarter")
+
+  ## Fishing Mortality
+
+  ss_agepro[["FbyFleet"]] <-
+    get_timeseries_param(ss_objectlist, "F:_", timestep = "Quarter")
 
 
   return(ss_agepro)
