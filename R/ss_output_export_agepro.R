@@ -237,9 +237,9 @@ get_timeseries_param <- function(ss_objectlist,
     return(ss_objectlist$timeseries |>
         dplyr::filter(.data$Yr <= yr_end) |>
         dplyr::select(dplyr::starts_with(colname_param)) |>
-        reshape2::melt(id.vars = c("Yr","Seas")) |>
-        data.table::dcast(.data$Yr ~ .data$variable + .data$Seas)) |>
-        suppressMessages()
+        data.table::as.data.table() |>
+        data.table::melt.data.table(id.vars = c("Yr","Seas")) |>
+        data.table::dcast.data.table( Yr ~ variable + Seas))
   }else{
     stop("Invalid Operation")
   }
