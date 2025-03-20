@@ -475,10 +475,10 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
                          nrow=ss_agepro[["Nfleets"]],
                          ncol=(ncol(ss_agepro[["CatchAtAge"]])-1)))
 
-  ss_agepro[["CatchbyFleet"]] <-
+  ss_agepro[["CatchByFleet"]] <-
     get_timeseries_param(ss_objectlist, "sel(B):_")
 
-  ss_agepro[["FbyFleet"]] <- get_timeseries_param(ss_objectlist, "F:_")
+  ss_agepro[["FByFleet"]] <- get_timeseries_param(ss_objectlist, "F:_")
 
 
   return(ss_agepro)
@@ -565,12 +565,12 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
 
   ## Biomass - Catch By Fleet
 
-  ss_agepro[["CatchbyFleet"]] <-
+  ss_agepro[["CatchByFleet"]] <-
     get_timeseries_param(ss_objectlist, "sel(B):_", timestep = "Quarter")
 
   ## Fishing Mortality
 
-  ss_agepro[["FbyFleet"]] <-
+  ss_agepro[["FByFleet"]] <-
     get_timeseries_param(ss_objectlist, "F:_", timestep = "Quarter")
 
 
