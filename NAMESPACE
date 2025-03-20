@@ -2,6 +2,7 @@
 
 export(check_ss_versionNumeric)
 export(copy_sso_n_boot)
+export(extract_end_year)
 export(get_ss3_exe)
 export(get_ss_objectlist_parameter)
 export(run_parallel)

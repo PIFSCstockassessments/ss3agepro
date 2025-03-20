@@ -5,6 +5,8 @@
 #'
 #' @template ss_objectlist
 #'
+#' @export
+#'
 extract_end_year <- function(ss_objectlist) {
 
   ## TODO Basic Validation on ss_objectlist
