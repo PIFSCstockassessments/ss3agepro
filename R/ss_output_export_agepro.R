@@ -221,22 +221,27 @@ get_timeseries_param <- function(ss_objectlist,
   timestep <- match.arg(timestep)
 
   # TODO: colname_param validation
-  # TODO: Determine to check target Fleet-Specfic Columns or not
+  # TODO: Custom validation method that "colname_param" is parameter from
+  # Stock Synthesis output parameters
   checkmate::assert_character(colname_param)
+
+  # TODO : Validate colname_param column type is numeric or int
 
   # Extract end year
   yr_end <- extract_end_year(ss_objectlist)
 
   if(timestep == "Year") {
-    return(ss_objectlist$timeseries |>
+    return(ss_objectlist[["timeseries"]] |>
              dplyr::filter(.data$Yr <= yr_end) |>
              dplyr::select("Yr",dplyr::starts_with(colname_param)) |>
              dplyr::group_by(.data$Yr) |>
              dplyr::summarize_all(sum))
   }else if (timestep == "Quarter") {
-    return(ss_objectlist$timeseries |>
+    return(ss_objectlist[["timeseries"]] |>
         dplyr::filter(.data$Yr <= yr_end) |>
-        dplyr::select(dplyr::starts_with(colname_param)) |>
+        dplyr::select("Yr","Seas",dplyr::starts_with(colname_param)) |>
+        dplyr::mutate(dplyr::across(dplyr::starts_with(colname_param),
+                                    as.numeric )) |>
         data.table::as.data.table() |>
         data.table::melt.data.table(id.vars = c("Yr","Seas")) |>
         data.table::dcast.data.table( Yr ~ variable + Seas))
