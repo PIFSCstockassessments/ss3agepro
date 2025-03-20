@@ -403,8 +403,8 @@ export_ss_objectlist_year <- function (ss_objectlist, ss_agepro){
 
   LatAge <- ss_objectlist$growthseries[which_Latage, 6:ncol(ss_objectlist$growthseries)]
 
-  ss_agepro[["MatAtAge"]] <- 1 / (1 + exp(Mat_Slope*(LatAge-Mat_50)))
-  ss_agepro[["MatAtAgeCV"]] <- rep(0.01, ss_agepro$MaxAge)
+  ss_agepro[["MaturityAtAge"]] <- 1 / (1 + exp(Mat_Slope*(LatAge-Mat_50)))
+  ss_agepro[["MaturityAtAgeCV"]] <- rep(0.01, ss_agepro$MaxAge)
 
 
   ## Fishery Selectivity at age
@@ -503,8 +503,8 @@ export_ss_objectlist_quarter <- function(ss_objectlist, ss_agepro) {
   mat_L <- seq(1,ss_agepro[["MaxAge"]]/4,0.25)
   mat_L50 <- get_ss_objectlist_parameter(ss_objectlist, "Mat50%_Fem_GP_1")
 
-  ss_agepro[["MatAtAge"]] <- 1 / ( 1 + exp( mat_beta * (mat_L - mat_L50)))
-  ss_agepro[["MatAtAgeCV"]] <- rep(0.01, ss_agepro[["MaxAge"]])
+  ss_agepro[["MaturityAtAge"]] <- 1 / ( 1 + exp( mat_beta * (mat_L - mat_L50)))
+  ss_agepro[["MaturityAtAgeCV"]] <- rep(0.01, ss_agepro[["MaxAge"]])
 
 
   ## Fishery Selectivity at age

@@ -6,8 +6,8 @@
 #'  * `BH_Var` the sigmaR from the SS3 model, or the variance of the recruitment deviations
 #'  * `RecruitmentObs` is a datatable containing the predicted recruitment, SSB, and recruitment deviation for each year or quarter
 #'  * `MaxAge` is the Amax parameter from the SS3 model or maximum age, note for the Quarter time step this is maximum age in quarters (or `MaxAge\*4`)
-#'  * `MatAtAge` is a vector containing the probability of maturity at age by year or quarter
-#'  * `MatAtAgeCV` is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
+#'  * `MaturityAtAge` is a vector containing the probability of maturity at age by year or quarter
+#'  * `MaturityAtAgeCV` is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
 #'  * `Fishery_SelAtAge` datatables of the selectivity by age and CV for each of the Nfleets
 #'  * `Fishery_SelAtAgeCV` datatables of the selectivity by age and CV for each of the Nfleets
 #'  * `NatMort_atAge` vectors of the natural mortality by age in years or quarters and their CV
