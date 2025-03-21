@@ -57,6 +57,7 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   ## TODO: Make this flexable enough for AGEPRO Recruitment
   # Set RECRUIT values
   set_parametric_recruit(ss_objectlist, ss_agepro)
+  set_emprical_recruit(ss_objectlist, ss_agepro)
 
   #indicate if you are doing yearly or years as quarters
   switch(timestep,
@@ -73,10 +74,13 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   return(ss_agepro)
 }
 
-#' Set Parametric Recruitment values with Stock Synthesis Data
+#' Set Recruitment Data values with Stock Synthesis Data
 #'
-#' Exports Stock Synthesis Output data for parametric recruitment (For Example,
-#' Beverton-Holt or Ricker curve) values
+#' `set_parameteric_recruit` sets Parametric Recruitment values with
+#' Stock Synthesis Data. It exports Stock Synthesis Output data for parametric
+#' recruitment (For Example, Beverton-Holt or Ricker curve) values
+#'
+#' `set_emprical_recruit` sets empirical recruitment data observations.
 #'
 #' @details
 #' If using a Beverton-Holt recruitment (options 5 or 10), you need alpha,
@@ -91,12 +95,13 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 #' @template ss_agepro
 #'
 #' @author Marc Nadon
-#'
+#' @rdname set_recruit_data
 #'
 set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 
   # Ensure ss_objectlist has the right parameters to select
-  objectlist_params <- c("recruit","parameters","derived_quants")
+  objectlist_params <- c("parameters","derived_quants")
+
   # Validate ss_objectlist
   checkmate::assert(
     checkmate::check_list(ss_objectlist),
@@ -104,9 +109,6 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
     checkmate::check_list(ss_agepro),
     combine = "and"
   )
-
-
-  ss_agepro[["RecruitmentObs"]] <- ss_objectlist$recruit[,c("Yr","SpawnBio","pred_recr","dev")]
 
   Steepness <- ss_objectlist$parameters[which(ss_objectlist$parameters$Label=="SR_BH_steep"),"Value"]
 
@@ -124,6 +126,24 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
 
 }
 
+#' @rdname set_recruit_data
+#'
+set_emprical_recruit <- function(ss_objectlist, ss_agepro) {
+
+  # Ensure ss_objectlist has the right parameters to select
+  objectlist_params <- c("recruit")
+
+  # Validate ss_objectlist
+  checkmate::assert(
+    checkmate::check_list(ss_objectlist),
+    checkmate::check_names(names(ss_objectlist), must.include = objectlist_params),
+    checkmate::check_list(ss_agepro),
+    combine = "and"
+  )
+
+  ss_agepro[["RecruitmentObs"]] <- ss_objectlist$recruit[,c("Yr","SpawnBio","pred_recr","dev")]
+
+}
 
 
 #' Get a parameter and its values from the Stock Synthesis Object List

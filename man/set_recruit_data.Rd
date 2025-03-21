@@ -2,9 +2,12 @@
 % Please edit documentation in R/ss_output_export_agepro.R
 \name{set_parametric_recruit}
 \alias{set_parametric_recruit}
-\title{Set Parametric Recruitment values with Stock Synthesis Data}
+\alias{set_emprical_recruit}
+\title{Set Recruitment Data values with Stock Synthesis Data}
 \usage{
 set_parametric_recruit(ss_objectlist, ss_agepro)
+
+set_emprical_recruit(ss_objectlist, ss_agepro)
 }
 \arguments{
 \item{ss_objectlist}{Stock Synthesis list object data, primary from \code{\link[r4ss:SS_output]{r4ss::SS_output()}}}
@@ -12,10 +15,13 @@ set_parametric_recruit(ss_objectlist, ss_agepro)
 \item{ss_agepro}{Stock Synthesis Object List for AGEPRO parameters}
 }
 \description{
-Exports Stock Synthesis Output data for parametric recruitment (For Example,
-Beverton-Holt or Ricker curve) values
+\code{set_parameteric_recruit} sets Parametric Recruitment values with
+Stock Synthesis Data. It exports Stock Synthesis Output data for parametric
+recruitment (For Example, Beverton-Holt or Ricker curve) values
 }
 \details{
+\code{set_emprical_recruit} sets empirical recruitment data observations.
+
 If using a Beverton-Holt recruitment (options 5 or 10), you need alpha,
 beta, and variance note that $B_0$ is kilograms of biomass and $R_0$ is
 numbers of fish
