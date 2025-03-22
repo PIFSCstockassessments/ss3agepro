@@ -12,6 +12,7 @@ Imports:
   gh,
   magrittr,
   r4ss,
+  ageproR,
   rlang,
   reshape2,
   stringr,
