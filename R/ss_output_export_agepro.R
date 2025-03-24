@@ -56,8 +56,8 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
 
   ## TODO: Make this flexable enough for AGEPRO Recruitment
   # Set RECRUIT values
-  set_parametric_recruit(ss_objectlist, ss_agepro)
-  set_emprical_recruit(ss_objectlist, ss_agepro)
+  ss_agepro <- set_parametric_recruit(ss_objectlist, ss_agepro)
+  ss_agepro <- set_emprical_recruit(ss_objectlist, ss_agepro)
 
   #indicate if you are doing yearly or years as quarters
   switch(timestep,
@@ -124,6 +124,7 @@ set_parametric_recruit <- function(ss_objectlist, ss_agepro) {
   # IMPORTANT: need to square since Agepro takes Variance as a parameter
   ss_agepro[["BH_var"]] <- ss_objectlist$parameters[which(ss_objectlist$parameters$Label=="SR_sigmaR"),"Value"]^2
 
+  return(ss_agepro)
 }
 
 #' @rdname set_recruit_data
@@ -143,6 +144,7 @@ set_emprical_recruit <- function(ss_objectlist, ss_agepro) {
 
   ss_agepro[["RecruitmentObs"]] <- ss_objectlist$recruit[,c("Yr","SpawnBio","pred_recr","dev")]
 
+  return(ss_agepro)
 }
 
 
