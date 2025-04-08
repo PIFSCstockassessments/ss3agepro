@@ -23,8 +23,8 @@ This fuction Returns a list containing the the Stock Synthesis following values:
 \item \code{BH_Var} the sigmaR from the SS3 model, or the variance of the recruitment deviations
 \item \code{RecruitmentObs} is a datatable containing the predicted recruitment, SSB, and recruitment deviation for each year or quarter
 \item \code{MaxAge} is the Amax parameter from the SS3 model or maximum age, note for the Quarter time step this is maximum age in quarters (or \verb{MaxAge\\*4})
-\item \code{MatAtAge} is a vector containing the probability of maturity at age by year or quarter
-\item \code{MatAtAgeCV} is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
+\item \code{MaturityAtAge} is a vector containing the probability of maturity at age by year or quarter
+\item \code{MaturityAtAgeCV} is a vector of the CV for the probability of maturity at age, note this (and all CVs) are set to 0.1 as a default but can be adjusted after running the script
 \item \code{Fishery_SelAtAge} datatables of the selectivity by age and CV for each of the Nfleets
 \item \code{Fishery_SelAtAgeCV} datatables of the selectivity by age and CV for each of the Nfleets
 \item \code{NatMort_atAge} vectors of the natural mortality by age in years or quarters and their CV
