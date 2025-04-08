@@ -90,3 +90,25 @@ check_ss_versionNumeric <- function (x, min_version = 3.3) {
 }
 
 
+#' ageproR Not Implemented Error
+#'
+#' Returns error to indicate feature or action isn't currently implemented
+#' with ageproR.
+#'
+#' @keywords Internal
+#' @keywords messages
+#'
+not_implmented_ageproR <- function() {
+  stop("Not implemented for ageproR")
+}
+
+#' Unsupported model error
+#'
+#' Returns error to indicate unsupported recruitment.
+#'
+#' @keywords Internal
+#' @keywords messages
+#'
+unsupported_model <- function() {
+  stop("Recruitment model not supported.")
+}
