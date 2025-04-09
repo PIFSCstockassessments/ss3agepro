@@ -23,7 +23,13 @@
 #' #Continuing from ss_output_export_agepro example
 #' bsn_file <- file.path(bootstrap_dir,"bootstrap.bsn")
 #'
-#' inp_file <- setup_agepro_inpfile(ss_agepro, num_years = 8, num_pop_sims = 1000, recruit_models = c(5,3), recruit_model_prob = c(0.6, 0.4), bsn_file)
+#' inp_file <-
+#'   setup_agepro_inpfile(ss_agepro,
+#'                       num_years = 8,
+#'                       num_pop_sims = 1000,
+#'                       recruit_models = c(5,3),
+#'                       recruit_model_prob = c(0.6, 0.4),
+#'                       bsn_file)
 #'
 #' }
 #'

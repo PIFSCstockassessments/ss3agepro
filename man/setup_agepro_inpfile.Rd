@@ -10,6 +10,8 @@ setup_agepro_inpfile(
   num_pop_sims,
   recruit_models,
   recruit_model_prob,
+  bsn_file,
+  num_boot = 100,
   model_name = "untitled"
 )
 }
@@ -24,9 +26,32 @@ setup_agepro_inpfile(
 
 \item{recruit_model_prob}{Recruitment proabbility}
 
+\item{bsn_file}{Bootstrap file}
+
+\item{num_boot}{Number of bootstraps}
+
 \item{model_name}{Model name}
 }
 \description{
 Conveince function to setup AGEPRO model class with AGEPRO input model
 file functions.
+}
+\examples{
+\dontrun{
+
+
+#Continuing from ss_output_export_agepro example
+bsn_file <- file.path(bootstrap_dir,"bootstrap.bsn")
+
+inp_file <-
+  setup_agepro_inpfile(ss_agepro,
+                      num_years = 8,
+                      num_pop_sims = 1000,
+                      recruit_models = c(5,3),
+                      recruit_model_prob = c(0.6, 0.4),
+                      bsn_file)
+
+}
+
+
 }
