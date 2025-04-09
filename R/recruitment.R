@@ -67,11 +67,24 @@ set_empirical_distribution_data <- function (inp_model, ss_agepro, irec = 1) {
 #' the Stock synthesis report objectlist.
 #'
 #' @template ss_agepro
-#' @param start_yr First year of time period to filter "Yr" field
-#' @param end_yr Last Year of time period to filter "Yr" field
+#' @param start_yr First year of time period to filter "Yr" field. If NULL,
+#' value will default to input stock synthesis objectlist `StartYr`
+#' @param end_yr Last Year of time period to filter "Yr" field.  If NULL,
+#' value will default to input stock synthesis objectlist `EndYr`
 #'
 #'
-subset_empirical_recobs <- function(ss_agepro, start_yr, end_yr) {
+subset_empirical_recobs <- function(ss_agepro, start_yr = NULL, end_yr = NULL) {
+
+  #If start_yr and end_yr are not
+  if(missing(start_yr)){
+    checkmate::assert_number(ss_agepro[["StartYr"]],lower = 0)
+    start_yr <- ss_agepro[["StartYr"]]
+  }
+
+  if(missing(end_yr)){
+    checkmate::assert_number(ss_agepro[["EndYr"]], lower = 0)
+    end_yr <- ss_agepro[["EndYr"]]
+  }
 
   recobs <- ss_agepro[["RecruitmentObs"]] |>
     dplyr::filter(.data$Yr >= start_yr & .data$Yr <= end_yr) |>

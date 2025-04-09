@@ -4,14 +4,16 @@
 \alias{subset_empirical_recobs}
 \title{Subset empirical recruitment observation table}
 \usage{
-subset_empirical_recobs(ss_agepro, start_yr, end_yr)
+subset_empirical_recobs(ss_agepro, start_yr = NULL, end_yr = NULL)
 }
 \arguments{
 \item{ss_agepro}{Stock Synthesis Object List for AGEPRO parameters}
 
-\item{start_yr}{First year of time period to filter "Yr" field}
+\item{start_yr}{First year of time period to filter "Yr" field. If NULL,
+value will default to input stock synthesis objectlist \code{StartYr}}
 
-\item{end_yr}{Last Year of time period to filter "Yr" field}
+\item{end_yr}{Last Year of time period to filter "Yr" field.  If NULL,
+value will default to input stock synthesis objectlist \code{EndYr}}
 }
 \description{
 Helper method to extract the empirical recruitment observation table from
