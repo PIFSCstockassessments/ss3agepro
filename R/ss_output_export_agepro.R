@@ -54,6 +54,10 @@ ss_output_export_agepro <- function(ss_objectlist, timestep = c("Year","Quarter"
   # Number of Fleets
   ss_agepro[["Nfleets"]] <- length(which(ss_objectlist[["fleet_type"]] == 1)) #length(unique(unique_selectivity_fleets(ss_objectlist)))
 
+  # Start/End Year of Stock Synthesis model.
+  ss_agepro[["StartYr"]] <- ss_objectlist[["startyr"]]
+  ss_agepro[["EndYr"]] <- ss_objectlist[["endyr"]]
+
   ## TODO: Make this flexable enough for AGEPRO Recruitment
   # Set RECRUIT values
   ss_agepro <- set_parametric_recruit(ss_objectlist, ss_agepro)

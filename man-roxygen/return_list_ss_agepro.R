@@ -23,3 +23,5 @@
 #'  * `CatchAtAgeCV` Catch Weight-of-Age CV by Nfleet
 #'  * `CatchByFleet` is the total catch by fleet in the last year/quarter of the model
 #'  * `FByFleet` Fishing Mortality by Fleet
+#'  * `StartYr` First year of the SS3 Report time period
+#'  * `EndYr` Final year of the SS3 Report time period

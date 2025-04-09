@@ -40,6 +40,8 @@ This fuction Returns a list containing the the Stock Synthesis following values:
 \item \code{CatchAtAgeCV} Catch Weight-of-Age CV by Nfleet
 \item \code{CatchByFleet} is the total catch by fleet in the last year/quarter of the model
 \item \code{FByFleet} Fishing Mortality by Fleet
+\item \code{StartYr} First year of the SS3 Report time period
+\item \code{EndYr} Final year of the SS3 Report time period
 }
 }
 \description{
