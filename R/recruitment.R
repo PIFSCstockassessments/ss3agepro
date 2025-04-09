@@ -34,10 +34,18 @@ set_inp_model_recruit_prob <- function(inp_model,
 }
 
 
+#' Use Stock Synthesis data to Set Empirical Recruitment Distribution.
+#'
+#' Helper function to set Empirical Recruitment Distribution data (Model #3)
+#' from stock synthesis report objectlist data.
+#'
+#' @param inp_model AGEPRO model
+#' @template ss_agepro
+#' @param irec Index of (Multi) recruitment Model
+#'
+set_empirical_distribution_data <- function (inp_model, ss_agepro, irec = 1) {
 
-set_empirical_distribution_data <- function (inp_model, ss_agepro, irec) {
-
-  # TODO: Validation
+  # TODO: Validate for observed_points, observations
 
   recobs <- ss_agepro[["RecruitmentObs"]] |>
     dplyr::filter(.data$Yr >= 1948 & .data$Yr <= 2004) |>
@@ -47,11 +55,32 @@ set_empirical_distribution_data <- function (inp_model, ss_agepro, irec) {
   # AGEPRO: Number of recruitment data points: T
   inp_model$recruit$recruit_data[[irec]][["observed_points"]] <- length(recobs)
   # AGEPRO: Recruitment: R_1 ... R_T
-  inp_model$recruit$recruit_data[[irec]][["observations"]] <- recobs
+  inp_model$recruit$recruit_data[[irec]][["observations"]] <- as.matrix(recobs)
 
   return(inp_model)
 }
 
+
+#' Subset empirical recruitment observation table
+#'
+#' Helper method to extract the empirical recruitment observation table from
+#' the Stock synthesis report objectlist.
+#'
+#' @template ss_agepro
+#' @param start_yr First year of time period to filter "Yr" field
+#' @param end_yr Last Year of time period to filter "Yr" field
+#'
+#'
+subset_empirical_recobs <- function(ss_agepro, start_yr, end_yr) {
+
+  recobs <- ss_agepro[["RecruitmentObs"]] |>
+    dplyr::filter(.data$Yr >= start_yr & .data$Yr <= end_yr) |>
+    subset(select = "pred_recr")
+
+  colnames(recobs) <- "recruit"
+
+  return(recobs)
+}
 
 #' Use Stock Synthesis Object data to create AGEPRO model recruit data.
 #'
