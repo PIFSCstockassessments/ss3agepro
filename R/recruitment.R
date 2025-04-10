@@ -143,6 +143,14 @@ set_inp_model_recruit_data <- function(inp_model, ss_agepro) { # NOTE FROM Marc 
     }
 
 
+    if (rec_model %in% c(7, 12)) {
+      inp_model$recruit$recruit_data[[irec]][["kpar"]] <- ss_agepro[["Kparm"]]
+    }
+    if (rec_model == 12) {
+      not_implmented_ageproR()
+    }
+
+
     #
     # if (aRecMod %in% c(5, 6, 10, 11)) {
     #   lines[[paste0("Rmod",rm,"a")]] <- paste(aRecPars$alpha, aRecPars$beta, aRecPars$var, collapse = "  ")
