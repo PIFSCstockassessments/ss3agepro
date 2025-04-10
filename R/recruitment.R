@@ -40,24 +40,21 @@ set_inp_model_recruit_prob <- function(inp_model,
 #' from stock synthesis report objectlist data.
 #'
 #' @param inp_model AGEPRO model
-#' @template ss_agepro
+#' @param recobs Recruitment Observations data frame
 #' @param irec Index of (Multi) recruitment Model
 #'
-set_empirical_distribution_data <- function (inp_model, ss_agepro, irec = 1) {
+set_empirical_distribution_data <- function (inp_model, recobs, irec = 1) {
 
   # TODO: Validate for observed_points, observations
+  checkmate::assert(
+    checkmate::check_data_frame(recobs, ncols = 1),
+    checkmate::check_names(names(recobs), permutation.of = "recruit"))
 
-  recobs <- ss_agepro[["RecruitmentObs"]] |>
-    dplyr::filter(.data$Yr >= 1948 & .data$Yr <= 2004) |>
-    subset(select = "pred_recr")
-
-  colnames(recobs) <- "recruit"
   # AGEPRO: Number of recruitment data points: T
   inp_model$recruit$recruit_data[[irec]][["observed_points"]] <- length(recobs)
   # AGEPRO: Recruitment: R_1 ... R_T
   inp_model$recruit$recruit_data[[irec]][["observations"]] <- as.matrix(recobs)
 
-  return(inp_model)
 }
 
 
@@ -130,18 +127,11 @@ set_inp_model_recruit_data <- function(inp_model, ss_agepro) { # NOTE FROM Marc 
 
     if (rec_model %in% c(3)) {
 
-      recobs <- ss_agepro[["RecruitmentObs"]] |>
-        dplyr::filter(.data$Yr >= 1948 & .data$Yr <= 2004) |>
-        subset(select = "pred_recr")
-
-      colnames(recobs) <- "recruit"
-      # AGEPRO: Number of recruitment data points: T
-      inp_model$recruit$recruit_data[[irec]][["observed_points"]] <- length(recobs)
-      # AGEPRO: Recruitment: R_1 ... R_T
-      inp_model$recruit$recruit_data[[irec]][["observations"]] <- as.matrix(recobs)
+      recobs <- subset_empirical_recobs(ss_agepro)
+      set_empirical_distribution_data(inp_model, recobs, irec)
     }
 
-    if(rec_model %in% c(5, 6, 10, 11)) {
+    if(rec_model %in% c(5, 6, 7, 10, 11)) {
 
       inp_model$recruit$recruit_data[[irec]][["alpha"]] <- ss_agepro[["alpha"]]
       inp_model$recruit$recruit_data[[irec]][["beta"]] <- ss_agepro[["beta"]]

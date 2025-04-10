@@ -4,12 +4,12 @@
 \alias{set_empirical_distribution_data}
 \title{Use Stock Synthesis data to Set Empirical Recruitment Distribution.}
 \usage{
-set_empirical_distribution_data(inp_model, ss_agepro, irec = 1)
+set_empirical_distribution_data(inp_model, recobs, irec = 1)
 }
 \arguments{
 \item{inp_model}{AGEPRO model}
 
-\item{ss_agepro}{Stock Synthesis Object List for AGEPRO parameters}
+\item{recobs}{Recruitment Observations data frame}
 
 \item{irec}{Index of (Multi) recruitment Model}
 }
