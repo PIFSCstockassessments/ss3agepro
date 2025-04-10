@@ -119,11 +119,16 @@ set_inp_model_recruit_data <- function(inp_model, ss_agepro) { # NOTE FROM Marc 
       unsupported_model()
     }
 
-    # if (aRecMod %in% c(2)) {
-    #   lines[[paste0("Rmod",rm,"a")]]<-paste(aRecPars$Nobs)
-    #   lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Recruits$pred_recr, collapse = "  ")
-    #   lines[[paste0("Rmod",rm,"c")]]<-paste(aRecPars$Recruits$SpawnBio, collapse = "  ")
-    # }
+    if (rec_model %in% c(2)) {
+      # ageproR TODO: Implement model #2
+      #   lines[[paste0("Rmod",rm,"a")]]<-paste(aRecPars$Nobs)
+      #   lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Recruits$pred_recr, collapse = "  ")
+      #   lines[[paste0("Rmod",rm,"c")]]<-paste(aRecPars$Recruits$SpawnBio, collapse = "  ")
+      # a <- ss_agepro[["Nobs"]]
+      # b <- subset_empirical_recobs(ss_agepro)
+      # c <- ss_agepro[["SpawnBio"]]
+      not_implmented_ageproR()
+    }
 
     if (rec_model %in% c(3)) {
 
@@ -139,34 +144,22 @@ set_inp_model_recruit_data <- function(inp_model, ss_agepro) { # NOTE FROM Marc 
 
     }
     if(rec_model %in% c(10,11)) {
+      #lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Phi, aRecPars$LastResid, collapse = "  ")
       not_implmented_ageproR()
     }
 
 
     if (rec_model %in% c(7, 12)) {
+      # TODO: implement Kparm on ss_agepro
       inp_model$recruit$recruit_data[[irec]][["kpar"]] <- ss_agepro[["Kparm"]]
     }
     if (rec_model == 12) {
+      # lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Phi, aRecPars$LastResid, collapse = "  ")
       not_implmented_ageproR()
     }
 
 
-    #
-    # if (aRecMod %in% c(5, 6, 10, 11)) {
-    #   lines[[paste0("Rmod",rm,"a")]] <- paste(aRecPars$alpha, aRecPars$beta, aRecPars$var, collapse = "  ")
-    #
-    #   if (aRecMod %in% c(10, 11)) {
-    #     lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Phi, aRecPars$LastResid, collapse = "  ")
-    #   }
-    # }
-    #
-    # if (aRecMod %in% c(7, 12)) {
-    #   lines[[paste0("Rmod",rm,"a")]]<-paste(aRecPars$alpha, aRecPars$beta, aRecPars$Kparm, aRecPars$var, collapse = "  ")
-    #
-    #   if (aRecMod == 12) {
-    #     lines[[paste0("Rmod",rm,"b")]]<-paste(aRecPars$Phi, aRecPars$LastResid, collapse = "  ")
-    #   }
-    # }
+
     #
     # if (aRecMod %in% c(8, 13)) {
     #   lines[[paste0("Rmod",rm,"a")]]<-paste(aRecPars$mean, aRecPars$stdev, collapse = "  ")
