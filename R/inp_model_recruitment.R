@@ -50,10 +50,14 @@ set_empirical_distribution_data <- function (inp_model, recobs, irec = 1) {
     checkmate::check_data_frame(recobs, ncols = 1),
     checkmate::check_names(names(recobs), permutation.of = "recruit"))
 
+  # ageproR: Recruitment observations is stored as a matrix
+  recobs_matrix <- as.matrix(recobs)
   # AGEPRO: Number of recruitment data points: T
-  inp_model$recruit$recruit_data[[irec]][["observed_points"]] <- length(recobs)
+  inp_model$recruit$recruit_data[[irec]][["observed_points"]] <-
+    length(recobs_matrix)
   # AGEPRO: Recruitment: R_1 ... R_T
-  inp_model$recruit$recruit_data[[irec]][["observations"]] <- as.matrix(recobs)
+  inp_model$recruit$recruit_data[[irec]][["observations"]] <-
+    recobs_matrix
 
 }
 
