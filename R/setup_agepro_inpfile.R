@@ -63,7 +63,8 @@ setup_agepro_inpfile <- function(ss_agepro,
   set_inp_model_bootstrap(inp_model, bsn_file, num_boot, 1000)
 
   #RECRUIT
-  suppressMessages(inp_model$set_recruit_model(recruit_models))
+  # AGEPROR TODO: use enable_cat_print as verbose flag
+  suppressMessages(inp_model$set_recruit_model(recruit_models, enable_cat_print = FALSE))
   set_inp_model_recruit_prob(inp_model, recruit_model_prob)
 
   set_inp_model_recruit_data(inp_model, ss_agepro)
