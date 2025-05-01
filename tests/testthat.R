@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(ss3-agepro)
+library(ss3agepro)
 
-test_check("ss3-agepro")
+test_check("ss3agepro")

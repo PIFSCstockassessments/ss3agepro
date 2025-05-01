@@ -16,7 +16,7 @@ selectivity data.
 \examples{
 \dontrun{
 
-basemodel_dir <- file.path(find.package("ss3-agepro"),"01_base")
+basemodel_dir <- file.path(find.package("ss3agepro"),"01_base")
 base_model <- r4ss::SS_output(basemodel_dir)
 
 # Returns Catch Fleet Numbers matching unique selectvity criteria.
