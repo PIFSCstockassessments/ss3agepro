@@ -36,7 +36,7 @@ extract_end_year <- function(ss_objectlist) {
 #' @examples
 #' \dontrun{
 #'
-#' basemodel_dir <- file.path(find.package("sso.agepro"),"01_base")
+#' basemodel_dir <- file.path(find.package("ss3-agepro"),"01_base")
 #' base_model <- r4ss::SS_output(basemodel_dir)
 #'
 #' # Returns Catch Fleet Numbers matching unique selectvity criteria.

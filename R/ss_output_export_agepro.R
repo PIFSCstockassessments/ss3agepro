@@ -26,7 +26,7 @@
 #' \dontrun{
 #'
 #'  # Setup For Bootstrap File and Directory
-#'  basemodel_dir <- file.path(find.package("sso.agepro"),"01_base")
+#'  basemodel_dir <- file.path(find.package("ss3-agepro"),"01_base")
 #'  bootstrap_dir <- file.path(tempdir())
 #'  setup_ss_bootstrap(basemodel_dir, bootstrap_dir, n_boot = 10)
 #'
