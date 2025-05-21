@@ -47,38 +47,51 @@ setup_agepro_inpfile <- function(ss_agepro,
   # TODO: Check bsn file path
 
 
-  inp_model <- suppressWarnings(ageproR::agepro_inp_model$new(yr_start = 1,
+  suppressMessages(
+    inp_model <- suppressWarnings(ageproR::agepro_inp_model$new(yr_start = 1,
                                              yr_end = num_years,
                                              age_begin = 1,
                                              age_end = ss_agepro[["MaxAge"]],
                                              num_pop_sims = num_pop_sims,
                                              num_fleets = ss_agepro[["Nfleets"]],
                                              num_rec_models = length(recruit_models),
-                                             enable_cat_print = FALSE))
+                                             enable_cat_print = FALSE,
+                                             show_general_params = FALSE)))
+
+  #print
+  print(inp_model$general)
 
   # Case ID (Model Name)
   inp_model$case_id$model_name <- model_name
 
   # BOOTSTRAP
-  set_inp_model_bootstrap(inp_model, bsn_file, num_boot, 1000)
+  suppressMessages(set_inp_model_bootstrap(inp_model, bsn_file, num_boot, 1000))
 
   #RECRUIT
-  # AGEPROR TODO: use enable_cat_print as verbose flag
   suppressMessages(inp_model$set_recruit_model(recruit_models, enable_cat_print = FALSE))
   set_inp_model_recruit_prob(inp_model, recruit_model_prob)
 
   set_inp_model_recruit_data(inp_model, ss_agepro)
 
-  # AGEPRO TODO: recruit_scaling_factor, ssb_scaling_factor, max_recruit_obs is read only
-  # General recruitment parameters used for all models
-  # inp_model$recruit$recruit_scaling_factor <- 1000
-  # inp_model$recruit$ssb_scaling_factor <- 1
-  # inp_model$recruit$max_recruit_obs <- 100
+  suppressMessages(set_inp_model_recruit_options(inp_model,
+                                                 recruit_scaling_factor = 1000,
+                                                 ssb_scaling_factor = 1,
+                                                 max_recruit_obs = 100))
 
 
   return(invisible(inp_model))
 }
 
+set_inp_model_recruit_options <- function(inp_model,
+                                             recruit_scaling_factor = 1000,
+                                             ssb_scaling_factor = 1,
+                                             max_recruit_obs = 10000) {
+  # General recruitment parameters used for all models
+  inp_model$recruit$recruit_scaling_factor <- recruit_scaling_factor
+  inp_model$recruit$ssb_scaling_factor <- ssb_scaling_factor
+  inp_model$recruit$max_recruit_obs <- max_recruit_obs
+
+}
 
 
 set_inp_model_bootstrap <- function(inp_model,
