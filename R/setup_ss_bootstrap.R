@@ -14,7 +14,6 @@
 #' @export
 #' @import r4ss
 #' @import parallel
-#' @import tidyverse
 #' @import stringr
 #' @importFrom utils write.table
 #' @importFrom this.path this.proj

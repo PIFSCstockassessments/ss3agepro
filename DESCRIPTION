@@ -16,8 +16,7 @@ Imports:
   rlang,
   reshape2,
   stringr,
-  this.path,
-  tidyverse
+  this.path
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
