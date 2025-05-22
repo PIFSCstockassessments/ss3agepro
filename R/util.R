@@ -112,3 +112,22 @@ not_implmented_ageproR <- function() {
 unsupported_model <- function() {
   stop("Recruitment model not supported.")
 }
+
+#' Customized inline style header.
+#'
+#' Creates an custom header with double-lines (colored in cyan by default), via
+#' cli library.
+#'
+#' @param keyword Text of the header
+#' @param header_color Text Color, R color, or HTML hexidecimal color.
+#'
+#' @keywords internal
+#'
+div_keyword_header <- function(keyword, header_color = "cyan") {
+  d <- cli::cli_div(theme = list(rule = list(
+    color = header_color,
+    "line-type" = "double")))
+  cli::cli_rule(keyword)
+  cli::cli_end(d)
+}
+
