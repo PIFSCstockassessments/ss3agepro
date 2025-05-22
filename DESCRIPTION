@@ -1,10 +1,13 @@
 Package: ss3agepro
-Title: What the Package Does (One Line, Title Case)
+Title: Export Stock Synthesis Output as AGEPRO (Age Structured Projection) Models
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person("Marc", "Nadon", , "marc.nadon@noaa.gov", role = "aut"),
+    person("Eric", "Fletcher", , "eric.fletcher@noaa.gov", 
+      role = c("aut", "cre"))
+  )
+Description: Generalized R-package to export Stock Synthesis Ouput Data 
+    (*.sso) and Bootstrap files to AGEPRO Input Data File Format.
 Imports:
   checkmate,
   data.table,
