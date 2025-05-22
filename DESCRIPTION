@@ -8,6 +8,7 @@ Authors@R: c(
   )
 Description: Generalized R-package to export Stock Synthesis Ouput Data 
     (*.sso) and Bootstrap files to AGEPRO Input Data File Format.
+Depends: R (>= 4.1.0)
 Imports:
   checkmate,
   data.table,
