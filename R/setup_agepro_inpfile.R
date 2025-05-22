@@ -47,19 +47,19 @@ setup_agepro_inpfile <- function(ss_agepro,
   # TODO: Check bsn file path
 
 
-  suppressMessages(
-    inp_model <- suppressWarnings(ageproR::agepro_inp_model$new(yr_start = 1,
+  inp_model <- suppressWarnings(ageproR::agepro_inp_model$new(yr_start = 1,
                                              yr_end = num_years,
                                              age_begin = 1,
                                              age_end = ss_agepro[["MaxAge"]],
                                              num_pop_sims = num_pop_sims,
                                              num_fleets = ss_agepro[["Nfleets"]],
                                              num_rec_models = length(recruit_models),
-                                             enable_cat_print = FALSE,
-                                             show_general_params = FALSE)))
+                                             enable_cat_print = FALSE))
 
-  #print
-  print(inp_model$general)
+  #Roundabout way to print out projection_analyses_type
+  div_keyword_header("")
+  cli::cli_alert_info(paste0("Agepro Model projection_analyses_type: ",
+                        "{.field {inp_model$projection_analyses_type}}"))
 
   # Case ID (Model Name)
   inp_model$case_id$model_name <- model_name
